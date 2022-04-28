@@ -1,0 +1,2 @@
+# 数据导入
+s32imdbpy.py E:\IMDB\data mysql+pymysql://root:WEN19961015@localhost:3306/imdb

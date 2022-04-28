@@ -1,0 +1,758 @@
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1977 AND mc.company_id>71403 AND mi.info_type_id<4 ;
+
+结果：1118271,275568,6,39,363242,275568,136855,1,827866,275568,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id<4 ;
+
+结果：7380844,936545,6,131,2375279,936545,232986,2,2590233,936545,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mc.company_type_id>1 ;
+
+结果：2898445,259481,1,69,391144,259481,10235,1,1669067,259481,32
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<176 AND mc.company_type_id<2 ;
+
+结果：4770711,233594,6,100,274186,233594,173,1,2960417,233594,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>11586 AND mc.company_type_id<2 ;
+
+结果：13317409,239363,4,125,362562,239363,59117,1,4167636,239363,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND true ;
+
+结果：62506355,1077780,6,131,2585960,1077780,234416,2,10868379,1077780,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<1990 AND mc.company_id<708 AND mc.company_type_id=1 ;
+
+结果：2706099,46907,5,89,66651,46907,427,1,1031990,46907,70
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_type_id<2 ;
+
+结果：44065130,720756,6,128,1263937,720756,70663,1,8616664,720756,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id>2 ;
+
+结果：58504355,1077662,6,131,2585451,1077662,234410,2,9434257,1077662,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year<1975 AND mi.info_type_id>16 ;
+
+结果：2425980,83302,1,86,275816,83302,24419,2,273737,83302,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=4 ;
+
+结果：2545767,865376,6,128,2238192,865376,226503,2,923022,865376,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2007 AND mc.company_id=448 AND mc.company_type_id<2 AND mi.info_type_id>8 ;
+
+结果：1002,849,3,5,850,849,1,1,999,849,6
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2009 AND mi.info_type_id<16 ;
+
+结果：25511008,606059,5,121,1527511,606059,174516,2,5171003,606059,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>401 AND mc.company_type_id>1 AND mi.info_type_id=3 ;
+
+结果：1437108,595994,6,131,808513,595994,192801,1,1026195,595994,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year>1999 AND mc.company_type_id<2 ;
+
+结果：3963260,225337,5,17,339425,225337,20303,1,1712756,225337,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1999 AND mc.company_id=91 AND mc.company_type_id>1 ;
+
+结果：1088,252,4,13,252,252,1,1,1088,252,19
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2006 AND mc.company_type_id=2 ;
+
+结果：10384713,469664,5,118,620037,469664,117592,1,5992601,469664,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mc.company_type_id=2 AND mi.info_type_id=2 ;
+
+结果：248754,149588,1,69,245904,149588,6545,1,151210,149588,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1959 AND mi.info_type_id>4 ;
+
+结果：5990643,198012,6,71,456596,198012,23080,2,1607505,198012,67
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=1995 AND mc.company_type_id=2 ;
+
+结果：260691,9897,6,1,16581,9897,6376,1,116513,9897,68
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<41434 ;
+
+结果：51871401,861249,6,129,1867450,861249,41316,2,9315656,861249,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=80307 AND mi.info_type_id>42 ;
+
+结果：32,29,2,10,29,29,1,1,32,29,2
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2007 ;
+
+结果：13345792,262298,6,11,627614,262298,102624,2,2262125,262298,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<45707 AND mc.company_type_id>1 ;
+
+结果：8852904,562700,6,129,663182,562700,26426,1,6528191,562700,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>11141 AND mi.info_type_id<16 ;
+
+结果：16570120,724355,6,131,1308813,724355,222827,2,6059873,724355,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2006 AND mc.company_id<6 AND mc.company_type_id=2 AND mi.info_type_id=4 ;
+
+结果：401,386,4,28,386,386,2,1,401,386,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_type_id=1 AND mi.info_type_id=94 ;
+
+结果：9449,2145,6,93,4158,2145,1059,1,5363,2145,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND mc.company_id>94869 ;
+
+结果：437311,37852,3,71,43188,37852,23947,1,366444,37852,68
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2007 AND mc.company_type_id=1 AND mi.info_type_id=6 ;
+
+结果：27243,5420,6,1,18232,5420,4520,1,6135,5420,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>27400 AND mc.company_type_id=2 ;
+
+结果：10779514,577599,6,126,738781,577599,188697,1,6811162,577599,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2006 ;
+
+结果：43935930,724907,6,118,1743695,724907,141154,2,7757848,724907,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>4 AND t.production_year>1995 AND mi.info_type_id=2 ;
+
+结果：234208,73357,2,19,232038,73357,8524,2,74017,73357,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=4 AND t.production_year=1990 AND mc.company_id<23204 AND mi.info_type_id>3 ;
+
+结果：5762,518,1,1,858,518,383,2,2765,518,55
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1998 AND mc.company_type_id>1 ;
+
+结果：8031456,482498,6,110,625948,482498,71617,1,5439141,482498,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year<1942 AND mc.company_type_id=2 ;
+
+结果：6,1,1,1,1,1,1,1,6,1,6
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<3 AND t.production_year>1998 AND mi.info_type_id=7 ;
+
+结果：1518903,82623,2,19,340276,82623,76702,2,193559,82623,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<22134 AND mi.info_type_id=6 ;
+
+结果：1103959,349829,6,126,960238,349829,15333,2,360408,349829,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year=2011 AND mc.company_id<160 AND mc.company_type_id>1 AND mi.info_type_id=16 ;
+
+结果：2421,878,4,1,921,878,74,1,2220,878,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2009 AND mi.info_type_id>4 ;
+
+结果：40413369,605951,5,121,1527321,605951,174497,2,4991089,605951,67
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>4 AND t.production_year=2007 ;
+
+结果：292871,12607,2,1,29097,12607,2270,2,70822,12607,22
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mi.info_type_id=7 ;
+
+结果：4389343,323201,5,128,1079173,323201,136397,2,1035177,323201,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year=2008 AND mc.company_id=1135 ;
+
+结果：218,27,3,1,31,27,1,2,184,27,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year<2002 AND mc.company_id<17504 ;
+
+结果：21924087,207126,1,112,511739,207126,7124,2,3477133,207126,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=4 AND mc.company_id>83575 ;
+
+结果：226241,21778,1,42,24565,21778,12060,1,191928,21778,65
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=1627 ;
+
+结果：33409,707,6,80,744,707,1,2,32113,707,65
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=1966 AND mc.company_id>76668 AND mc.company_type_id>1 AND mi.info_type_id<3 ;
+
+结果：3365,1601,1,1,1950,1601,1245,1,2632,1601,2
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=2011 AND mc.company_type_id=1 ;
+
+结果：1355668,9937,1,1,21921,9937,7158,1,160666,9937,34
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=4283 ;
+
+结果：5795,334,5,9,339,334,1,2,5767,334,26
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mi.info_type_id<13 ;
+
+结果：3027281,198823,1,70,520498,198823,9349,2,1061889,198823,11
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id<16 ;
+
+结果：33873795,956636,6,131,2410238,956636,233912,2,7423956,956636,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=7608 AND mi.info_type_id>107 ;
+
+结果：3,1,1,1,1,1,1,1,3,1,2
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<3 AND t.production_year>1928 AND mc.company_id=17380 AND mc.company_type_id=2 ;
+
+结果：9,1,1,1,1,1,1,1,9,1,9
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=3 AND mc.company_id<7851 AND mi.info_type_id<4 ;
+
+结果：383132,73570,1,79,128698,73570,3819,2,202330,73570,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2011 AND mi.info_type_id<4 ;
+
+结果：6658236,834552,6,123,2120446,834552,199791,2,2305477,834552,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<3 AND mi.info_type_id=7 ;
+
+结果：4166097,284353,2,128,969128,284353,124274,2,967713,284353,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2011 AND mc.company_type_id=2 ;
+
+结果：16528748,814573,6,123,1133774,814573,173401,1,9112911,814573,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<4 AND t.production_year>2002 AND mc.company_id<8185 ;
+
+结果：8900609,100099,3,15,217154,100099,6735,2,1552614,100099,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=1997 AND mc.company_id<55682 AND mc.company_type_id<2 ;
+
+结果：32843,3076,1,1,4028,3076,184,1,22182,3076,26
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=34 AND mi.info_type_id=2 ;
+
+结果：11879,9192,6,98,11494,9192,1,2,9470,9192,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year<2009 ;
+
+结果：4529720,244775,1,64,519843,244775,8397,2,1603735,244775,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<37696 AND mc.company_type_id<2 ;
+
+结果：43068211,689605,6,128,1213688,689605,37540,1,8312514,689605,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=2001 AND mc.company_id<163895 AND mi.info_type_id<16 ;
+
+结果：659623,5872,1,1,20601,5872,7771,2,65108,5872,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=19 ;
+
+结果：573263,42322,5,77,46978,42322,1,2,525483,42322,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mc.company_type_id=2 ;
+
+结果：15542780,679919,5,131,930879,679919,203139,1,8403994,679919,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_type_id=1 ;
+
+结果：44065130,720756,6,128,1263937,720756,70663,1,8616664,720756,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year>1999 AND mc.company_id<34050 AND mc.company_type_id=1 ;
+
+结果：1711726,91884,1,15,158105,91884,2417,1,614188,91884,30
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mc.company_type_id>1 AND mi.info_type_id<15 ;
+
+结果：8636683,679857,5,131,930800,679857,203124,1,5435681,679857,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mc.company_type_id=2 AND mi.info_type_id>16 ;
+
+结果：390412,111460,1,68,189482,111460,6272,1,212564,111460,18
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=1997 AND mc.company_id>4423 AND mc.company_type_id>1 AND mi.info_type_id<4 ;
+
+结果：4002,1581,1,1,2331,1581,322,1,2687,1581,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year<1982 AND mc.company_id>1434 AND mi.info_type_id=5 ;
+
+结果：7371,4227,1,30,5531,4227,285,2,5508,4227,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2003 AND mc.company_id>71740 ;
+
+结果：264616,10326,6,1,13374,10326,8576,1,158548,10326,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2010 AND mc.company_type_id=1 ;
+
+结果：1719094,28470,6,1,51909,28470,9728,1,299823,28470,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2007 AND mc.company_id<686 AND mi.info_type_id<16 ;
+
+结果：256430,10903,6,1,20582,10903,504,2,94434,10903,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=1960 AND mc.company_id<3845 AND mc.company_type_id>1 ;
+
+结果：15742,1608,1,1,1625,1608,24,1,15600,1608,18
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<4 AND t.production_year=1965 AND mc.company_id>34 AND mc.company_type_id=2 AND mi.info_type_id=7 ;
+
+结果：7272,1623,3,1,2420,1623,1370,1,4540,1623,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<6 AND mc.company_type_id=2 ;
+
+结果：6685,738,5,38,739,738,4,1,6680,738,27
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=2007 AND mi.info_type_id=3 ;
+
+结果：710,244,1,1,583,244,295,2,283,244,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2012 AND mc.company_id<159 AND mc.company_type_id<2 ;
+
+结果：2522170,57702,5,95,68962,57702,154,1,1359535,57702,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year>2005 AND mi.info_type_id=16 ;
+
+结果：3672728,204764,5,12,518569,204764,111676,2,433462,204764,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=78915 AND mc.company_type_id>1 AND mi.info_type_id<103 ;
+
+结果：321,28,3,3,28,28,1,1,321,28,14
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<20225 AND mc.company_type_id=1 ;
+
+结果：40947374,649614,6,128,1133299,649614,20104,1,7936152,649614,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id<8 ;
+
+结果：21644245,950384,6,131,2399254,950384,233728,2,5724347,950384,7
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>1639 AND mi.info_type_id=54 ;
+
+结果：76303,3673,4,90,37611,3673,5996,2,6196,3673,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_type_id=2 AND mi.info_type_id=16 ;
+
+结果：3231738,816544,6,127,1167811,816544,180203,1,1546901,816544,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=104 ;
+
+结果：249151,33720,6,125,243412,33720,37926,2,34169,33720,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2006 AND mc.company_id=1284 AND mc.company_type_id>1 AND mi.info_type_id<16 ;
+
+结果：2132,409,3,5,412,409,1,1,2118,409,11
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<4 AND mc.company_id>10999 AND mc.company_type_id=2 ;
+
+结果：11398721,503909,3,131,659859,503909,182779,1,6701858,503909,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=1980 ;
+
+结果：455227,7773,6,1,17793,7773,4999,2,74951,7773,66
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1953 ;
+
+结果：6346077,160331,4,65,372768,160331,18796,2,1927199,160331,70
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<329 AND mc.company_type_id<2 AND mi.info_type_id>16 ;
+
+结果：1528388,142663,6,111,191547,142663,324,1,745085,142663,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<84460 AND mc.company_type_id=2 ;
+
+结果：12252094,713392,6,129,945118,713392,54448,1,7751363,713392,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<1980 AND mc.company_id=14424 AND mc.company_type_id<2 ;
+
+结果：4221,358,1,13,358,358,1,1,4221,358,22
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year>2002 AND mc.company_id<76195 ;
+
+结果：5154846,256415,5,14,532221,256415,25694,2,1650118,256415,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mc.company_id<27970 AND mi.info_type_id<18 ;
+
+结果：33260880,542101,5,129,1250151,542101,27692,2,6096585,542101,15
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<3 AND t.production_year<2007 AND mc.company_type_id=1 ;
+
+结果：29914120,277291,2,116,588109,277291,38826,1,4607275,277291,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mc.company_type_id=2 ;
+
+结果：2898445,259481,1,69,391144,259481,10235,1,1669067,259481,32
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year=1990 AND mc.company_id>61642 AND mc.company_type_id<2 ;
+
+结果：344,25,3,1,28,25,27,1,306,25,19
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year=2011 AND mc.company_id=6 ;
+
+结果：8864,499,3,1,500,499,1,2,8856,499,20
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mi.info_type_id>3 ;
+
+结果：5078356,324625,1,70,704463,324625,12301,2,1622806,324625,30
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1980 ;
+
+结果：15352411,359943,6,92,833856,359943,48528,2,3903145,359943,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>664 ;
+
+结果：51169424,930171,6,131,2004885,930171,233752,2,10085440,930171,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2011 ;
+
+结果：57435685,943660,6,123,2276437,943660,201021,2,9855052,943660,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<567 AND mc.company_type_id<2 ;
+
+结果：8943781,310274,6,117,403515,310274,564,1,4031864,310274,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year>1998 AND mc.company_type_id=1 ;
+
+结果：18362038,93527,1,20,239691,93527,34794,1,1929306,93527,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=2009 AND mi.info_type_id>98 ;
+
+结果：448966,7989,1,1,29903,7989,12970,2,24620,7989,9
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id<2 ;
+
+结果：1624808,477814,6,126,1405505,477814,165281,2,512044,477814,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=2003 AND mi.info_type_id=3 ;
+
+结果：1234,353,1,1,796,353,283,2,513,353,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>7282 ;
+
+结果：33493181,812441,6,131,1505933,812441,227139,2,9234094,812441,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<1935 AND mc.company_type_id=2 ;
+
+结果：1380936,117252,3,47,121752,117252,7515,1,1322330,117252,70
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id>16 ;
+
+结果：17776985,482686,6,130,1526243,482686,180563,2,1727740,482686,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=3 AND t.production_year=1939 ;
+
+结果：848,117,1,1,132,117,4,2,723,117,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2011 AND mc.company_type_id=2 ;
+
+结果：13958516,598910,5,123,810203,598910,172243,1,7601500,598910,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2007 AND mc.company_id>1402 AND mc.company_type_id=1 AND mi.info_type_id>3 ;
+
+结果：6137319,92234,6,10,160067,92234,29441,1,921487,92234,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2008 AND mi.info_type_id<16 ;
+
+结果：1386901,36284,6,1,94637,36284,28771,2,261341,36284,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year<2000 AND mc.company_type_id=2 ;
+
+结果：1606806,134408,1,54,194161,134408,3783,1,1063469,134408,31
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 ;
+
+结果：49637615,484239,1,131,1300171,484239,188025,2,6764749,484239,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<1263 AND mc.company_type_id<2 ;
+
+结果：11677193,351505,6,118,487975,351505,1260,1,4556455,351505,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1980 ;
+
+结果：46628513,701507,6,38,1718049,701507,195471,2,6854622,701507,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2012 AND mc.company_id<288 AND mc.company_type_id<2 ;
+
+结果：25787,3391,6,3,3834,3391,142,1,21137,3391,26
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<2561 AND mc.company_type_id=2 AND mi.info_type_id>16 ;
+
+结果：574042,111062,6,102,123646,111062,1567,1,488799,111062,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 ;
+
+结果：56559589,753048,5,131,1881009,753048,232901,2,8935456,753048,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=2012 ;
+
+结果：243198,19678,1,1,45332,19678,2530,2,63102,19678,23
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=6 ;
+
+结果：1518403,418441,6,127,1346894,418441,114850,2,430231,418441,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>91513 AND mi.info_type_id=6 ;
+
+结果：147944,109097,4,123,136486,109097,62242,1,115645,109097,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>228 ;
+
+结果：56485150,979698,6,131,2198438,979698,234188,2,10366233,979698,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND mc.company_id=3206 AND mi.info_type_id<16 ;
+
+结果：478,21,1,7,21,21,1,2,478,21,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>297 AND mc.company_type_id=2 AND mi.info_type_id>16 ;
+
+结果：3632804,427468,6,130,652411,427468,154322,1,1611672,427468,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND mc.company_id<62733 AND mi.info_type_id=8 ;
+
+结果：1180089,364460,1,129,963990,364460,49377,2,397150,364460,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year=2008 ;
+
+结果：279962,13227,1,1,28722,13227,1920,2,65067,13227,22
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=7 ;
+
+结果：5189700,443463,6,128,1424926,443463,137184,2,1328474,443463,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year=2013 AND mc.company_id<144566 AND mc.company_type_id<2 ;
+
+结果：54029,6545,5,1,8239,6545,1512,1,38067,6545,22
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year=2010 ;
+
+结果：617341,29144,5,1,66096,29144,10381,2,174039,29144,31
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mi.info_type_id>4 ;
+
+结果：48000898,752152,5,131,1879427,752152,232805,2,5917553,752152,67
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND mc.company_id=166 AND mc.company_type_id<2 AND mi.info_type_id>16 ;
+
+结果：88,47,3,15,47,47,1,1,88,47,7
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mi.info_type_id=2 ;
+
+结果：482221,178264,1,70,476635,178264,8142,2,180097,178264,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 ;
+
+结果：5946766,324732,1,70,704951,324732,12304,2,1932923,324732,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id>8 ;
+
+结果：38310873,988495,6,130,2447274,988495,222762,2,4229243,988495,63
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2005 AND mc.company_id>4031 ;
+
+结果：11998004,280705,6,13,527562,280705,119466,2,2780901,280705,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<4 AND t.production_year<2011 AND mc.company_id<80112 AND mc.company_type_id=1 ;
+
+结果：37224821,381148,3,120,774128,381148,53827,1,5876860,381148,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=16 ;
+
+结果：10855575,942654,6,127,2356529,942654,208911,2,1716683,942654,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>101181 ;
+
+结果：4207730,206799,4,124,249586,206799,133633,1,3047596,206799,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND t.production_year<2011 AND mc.company_id>34677 AND mc.company_type_id=2 ;
+
+结果：1232838,120737,1,64,148531,120737,6070,1,951197,120737,31
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year>1988 AND mi.info_type_id<16 ;
+
+结果：15107571,219907,1,30,644802,219907,140965,2,2018128,219907,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2008 AND mi.info_type_id>17 ;
+
+结果：2306570,106178,6,10,313509,106178,73489,2,289667,106178,21
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2004 AND mc.company_id<12 AND mi.info_type_id<13 ;
+
+结果：99514,6960,5,80,7848,6960,10,2,89974,6960,11
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2013 AND mc.company_id=3391 ;
+
+结果：3832,461,2,9,463,461,1,2,3795,461,15
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=2 ;
+
+结果：2377192,900907,6,131,2305188,900907,229197,2,922078,900907,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<13874 AND mc.company_type_id=1 AND mi.info_type_id=16 ;
+
+结果：6353163,551081,6,126,955933,551081,13348,1,1201963,551081,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 AND t.production_year<2007 ;
+
+结果：9160777,403926,5,75,862648,403926,50294,2,3002014,403926,70
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=3 ;
+
+结果：3378844,692009,6,131,1779822,692009,222047,2,1156111,692009,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<1986 ;
+
+结果：16341823,295524,5,98,708935,295524,57908,2,3521326,295524,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=18 ;
+
+结果：3007404,317867,6,128,1062547,317867,144930,2,576211,317867,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=2000 ;
+
+结果：1261417,5667,1,1,19794,5667,8272,2,106743,5667,32
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year<2009 AND mi.info_type_id<7 ;
+
+结果：12101482,605249,5,121,1526363,605249,174366,2,3058297,605249,6
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND mc.company_id<31460 AND mc.company_type_id=2 ;
+
+结果：5041460,205065,1,129,238403,205065,12927,1,3643925,205065,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year>2010 AND mi.info_type_id=7 ;
+
+结果：309483,23206,5,7,76566,23206,28307,2,47823,23206,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1999 AND mc.company_id=475 AND mi.info_type_id=2 ;
+
+结果：614,440,6,18,588,440,1,2,460,440,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id<15 ;
+
+结果：27876965,953086,6,131,2403796,953086,233889,2,6926486,953086,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id>1 ;
+
+结果：12868740,593541,5,85,1285789,593541,75976,2,4103630,593541,70
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year=2010 AND mi.info_type_id>3 ;
+
+结果：1735803,17556,1,1,48057,17556,21581,2,174657,17556,28
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<11428 AND mi.info_type_id<103 ;
+
+结果：31547494,655179,6,128,1322707,655179,11400,2,7058531,655179,63
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND mc.company_id<73931 AND mi.info_type_id=1 ;
+
+结果：727474,181059,1,125,587030,181059,45598,2,200881,181059,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year=1989 ;
+
+结果：624292,6400,5,1,17951,6400,6691,2,79816,6400,66
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<160 AND mc.company_type_id<2 AND mi.info_type_id>2 ;
+
+结果：3771576,190606,6,100,222558,190606,157,1,2255078,190606,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2005 AND mc.company_id=14544 AND mi.info_type_id<16 ;
+
+结果：257,23,1,6,23,23,1,1,257,23,8
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2002 AND mc.company_id<15308 AND mc.company_type_id>1 ;
+
+结果：2269375,147597,6,15,180107,147597,7202,1,1570319,147597,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1999 AND mc.company_id<5980 AND mc.company_type_id=1 ;
+
+结果：10870086,198200,6,18,340476,198200,5202,1,2427194,198200,36
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1999 AND mc.company_id<5007 AND mc.company_type_id>1 AND mi.info_type_id<16 ;
+
+结果：927342,84853,6,18,103127,84853,2817,1,719446,84853,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=1964 AND mc.company_id>2561 AND mc.company_type_id=1 AND mi.info_type_id<15 ;
+
+结果：49185,1389,4,1,2657,1389,1064,1,14922,1389,12
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id=6797 ;
+
+结果：49410,331,4,20,438,331,1,2,37460,331,62
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=4 AND mc.company_id>20380 AND mi.info_type_id=94 ;
+
+结果：1,1,1,1,1,1,1,1,1,1,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=1997 AND mc.company_id<76377 AND mc.company_type_id=2 AND mi.info_type_id<16 ;
+
+结果：122641,8173,6,1,11859,8173,3351,1,72114,8173,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>2012 AND mc.company_type_id=2 ;
+
+结果：315573,22849,6,6,36184,22849,18142,1,173945,22849,33
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_type_id=2 AND mi.info_type_id<98 ;
+
+结果：16579671,939224,6,131,1321710,939224,204611,1,9393395,939224,61
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id>846 AND mi.info_type_id>16 ;
+
+结果：14181833,436865,6,130,1158819,436865,179740,2,1641187,436865,57
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=1988 AND mc.company_id>178517 AND mi.info_type_id<8 ;
+
+结果：3910,431,4,1,483,431,464,1,3397,431,7
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year>1998 AND mc.company_id>598 AND mc.company_type_id=1 ;
+
+结果：17959526,221557,6,19,394227,221557,48136,1,3031805,221557,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=80 ;
+
+结果：115898,3841,4,90,56090,3841,6406,2,6333,3841,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mc.company_id<76832 AND mc.company_type_id=2 ;
+
+结果：11353385,679554,6,129,868617,679554,46835,1,7502575,679554,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=4 AND t.production_year>2007 AND mc.company_id>6136 AND mc.company_type_id>1 ;
+
+结果：180534,18770,1,8,20936,18770,8081,1,151228,18770,30
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=1 AND t.production_year>2011 ;
+
+结果：1870822,32535,1,7,75892,32535,33323,2,356577,32535,34
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2007 AND mc.company_id>71525 AND mi.info_type_id=3 ;
+
+结果：29149,12792,6,1,16595,12792,12754,1,21578,12792,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<1936 AND mc.company_id<7314 ;
+
+结果：595826,15158,3,42,27935,15158,395,2,233628,15158,69
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year>1983 AND mc.company_type_id=2 AND mi.info_type_id=4 ;
+
+结果：681045,385342,5,35,584032,385342,164038,1,425263,385342,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year=2008 ;
+
+结果：2818061,43938,6,1,105319,43938,28977,2,429227,43938,32
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id=7 AND mc.company_type_id=1 AND mi.info_type_id<4 ;
+
+结果：420007,158424,1,69,242502,158424,2598,1,263409,158424,3
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year>2007 AND mc.company_id<13422 AND mi.info_type_id<16 ;
+
+结果：3204126,78744,5,10,176672,78744,8659,2,602863,78744,13
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.production_year<2009 ;
+
+结果：51908420,850863,6,121,2047403,850863,175538,2,8999820,850863,71
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND mi.info_type_id=103 ;
+
+结果：348356,55543,6,122,331427,55543,37039,2,57284,55543,1
+-------------------------------------------------------
+查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(mi.id)), count(distinct(mi.movie_id)), count(distinct(mi.info_type_id)) FROM title t,movie_companies mc,movie_info mi WHERE t.id=mc.movie_id AND t.id=mi.movie_id AND t.kind_id<7 AND t.production_year=1995 AND mi.info_type_id>2 ;
+
