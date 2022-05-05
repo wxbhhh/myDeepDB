@@ -63,4 +63,22 @@ title t,movie_companies mc,cast_info ci#t.id=mc.movie_id,t.id=ci.movie_id#mc.com
     AND t.id<=2525745.0 AND t.id>1000000 
     AND mc.company_type_id=1 AND t.id>=2.0 ;
 
+原始sql: 
+    SELECT count(*) FROM movie_info mi,movie_companies mc,cast_info ci 
+    WHERE mi.movie_id=mc.movie_id AND mi.movie_id=ci.movie_id 
+    AND mc.company_id=27 AND mi.movie_id>1000000 
+    AND mc.company_type_id=1 AND ci.person_id<1265390 ;
+转化后sql: 
+    SELECT count(*) FROM movie_companies mc,cast_info ci,movie_info mi 
+    WHERE mi.movie_id=ci.movie_id AND mi.movie_id=mc.movie_id 
+    AND mi.movie_id<=2525745.0 AND mc.movie_id>=1.0 
+    AND mi.movie_id>=2.0 AND ci.movie_id<=2525975.0 
+    AND mi.movie_id>1000000 AND mc.company_id=27 
+    AND mc.movie_id<=2525745.0 AND ci.movie_id<=2526430.0 
+    AND ci.person_id<1265390 AND mc.movie_id>1000000 
+    AND mi.movie_id<=2526430.0 AND mi.movie_id<=2525975.0 
+    AND mc.movie_id>=2.0 AND ci.movie_id>1000000 
+    AND mc.company_type_id=1 AND mc.movie_id<=2526430.0 
+    AND ci.movie_id>=1.0 AND mi.movie_id>=1.0 ;
+
 

@@ -1,8 +1,0 @@
-查询：SELECT count(*), count(distinct(t.id)), count(distinct(t.kind_id)), count(distinct(t.production_year)), count(distinct(mc.id)), count(distinct(mc.movie_id)), count(distinct(mc.company_id)), count(distinct(mc.company_type_id)), count(distinct(ci.id)), count(distinct(ci.person_id)), count(distinct(ci.movie_id)), count(distinct(ci.role_id)) FROM title t,movie_companies mc,cast_info ci WHERE t.id=mc.movie_id AND t.id=ci.movie_id AND t.production_year<1981 AND mc.company_type_id<2 ;
-
-结果：9805220,250338,6,90,415264,250338,17419,1,3824414,477835,250338,11
--------------------------------------------------------
---------------------------------------------------------
-开始时间：2022-04-25 09:35:08
-结束时间：2022-04-25 09:36:17
-耗时：69.296777 s
