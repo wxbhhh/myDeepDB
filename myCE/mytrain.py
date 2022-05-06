@@ -6,8 +6,9 @@ import torch
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
 
+from myCE.mymscn.myDB import get_model_info, get_models_dnv_vals, get_db_column_min_max_dnv_vals
 from mymscn.myutil import *
-from mymscn.mydata import get_model_datasets, get_models_dnv_vals, get_db_column_min_max_dnv_vals
+from mymscn.mydata import get_model_datasets
 from mymscn.mynn import my_nn
 
 
@@ -92,22 +93,6 @@ def print_qerror(preds_unnorm, labels_unnorm):
     print("Max: {}".format(np.max(qerror)))
     print("Mean: {}".format(np.mean(qerror)))
 
-
-# 读取模型的相关配置
-def get_model_info():
-    modelConfigInfo = {}
-    modelConfigPath = './data/model_config.csv'
-    with open(modelConfigPath, 'r') as modelConfigFile:
-        for row in modelConfigFile:
-            lineArr = row.split(',')
-            modelName = lineArr[1]
-            modelIndex = lineArr[0]
-            modelTables = lineArr[2].split('#')
-            modelProperties = lineArr[3].strip().split('#')
-
-            model = {'index': modelIndex, 'table': modelTables, 'properties': modelProperties}
-            modelConfigInfo[modelName] = model
-    return modelConfigInfo
 
 # 构建和训练神经网络模型
 def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, cuda):

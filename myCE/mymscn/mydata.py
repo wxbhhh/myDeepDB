@@ -1,10 +1,8 @@
 import csv
-import os.path
 
-import torch
 from torch.utils.data import dataset
-
 from myCE.mymscn.myutil import *
+
 
 def make_model_dataset(samples, predicates, joins, labels, max_num_joins, max_num_predicates):
     """Add zero-padding and wrap as tensor dataset."""
@@ -110,38 +108,6 @@ def load_model_data(file_name, num_materialized_samples):
     return joins, predicates, tables, samples, label
 
 
-# 获取数据库每张表的属性的相关信息
-def get_db_column_min_max_dnv_vals():
-    file_name_column_min_max_vals = "./data/column_min_max_vals.csv"
-    column_min_max_dnv_vals = {}
-    with open(file_name_column_min_max_vals, 'rU') as f:
-        data_raw = list(list(rec) for rec in csv.reader(f, delimiter=','))
-        for i, row in enumerate(data_raw):
-            if i == 0:
-                continue
-            #column_min_max_vals[row[0]] = [float(row[1]), float(row[2])]
-            column_min_max_dnv_vals[row[0]] = {'min': float(row[1]), 'max': float(row[2]), 'dnv': int(row[4])}
-    return column_min_max_dnv_vals
-
-
-# 获取每个模型每个属性的dnv
-def get_models_dnv_vals():
-    column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
-    model_dnv_vals_file_path = "./data/model_config.csv"
-    with open(model_dnv_vals_file_path, 'rU') as model_dnv_vals_file:
-        data_raw = list(list(rec) for rec in csv.reader(model_dnv_vals_file, delimiter=','))
-
-        model_dnv_vals = {}
-        for row in data_raw:
-            model_name = row[1]
-            model_properties = row[3].split('#')
-            properties_dnv = []
-            for properties in model_properties:
-                properties_dnv.append(column_min_max_dnv_vals[properties]['dnv'])
-            model_dnv_vals[model_name] = properties_dnv
-    return model_dnv_vals
-
-
 # 根据模型的数据文件加载和编码模型数据
 def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries_percent, num_materialized_samples):
 
@@ -196,6 +162,7 @@ def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_mi
     train_data = [samples_train, predicates_train, joins_train]
     test_data = [samples_test, predicates_test, joins_test]
     return dicts, card_max_val, card_min_val, labels_train, labels_test, max_num_joins, max_num_predicates, train_data, test_data
+
 
 # 根据模型文件名对数据进行相关处理
 def get_model_datasets(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries, num_materialized_samples):
