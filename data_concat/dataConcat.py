@@ -3,7 +3,7 @@ import time
 
 from tool.fileTool import mkdir
 
-
+# 将sqlArr 和查询结果连接
 def dataConvertMain():
     timeStamp = time.strftime("%Y%m%d%H%M%S")
     dataSqlPath = './model_sql'

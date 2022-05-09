@@ -1,0 +1,3 @@
+cast_info ci##ci.role_id,=,10#4319128,4319128,715607,704885,1
+cast_info ci##ci.person_id,<,2593187,ci.role_id,<,2#12639643,12639643,1729824,1885011,1
+cast_info ci##ci.person_id,<,23187,ci.person_id,>,50,ci.role_id,>,3#36978,36978,2869,31215,8
