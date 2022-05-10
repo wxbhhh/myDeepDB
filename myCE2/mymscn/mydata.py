@@ -110,19 +110,22 @@ def load_model_data(file_name, num_materialized_samples):
 
 # 根据模型的数据文件加载和编码模型数据
 def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries_percent, num_materialized_samples):
-
     joins, predicates, tables, samples, label = load_model_data(train_data_file, num_materialized_samples)
+
+    column_dict = list(model_column_dnv_vals.keys())
 
     # Get column name dict
     column_names = get_all_column_names(predicates)
-    column2vec, idx2column = get_set_encoding(column_names)
+    #column2vec, idx2column = get_set_encoding(column_names)
+    column2vec, idx2column = get_set_encoding(column_dict)
 
     # Get table name dict
     table_names = get_all_table_names(tables)
     table2vec, idx2table = get_set_encoding(table_names)
 
     # Get operator name dict
-    operators = get_all_operators(predicates)
+    # operators = get_all_operators(predicates)
+    operators = ['>', '>=', '<', '<=', '=']
     op2vec, idx2op = get_set_encoding(operators)
 
     # Get join name dict
@@ -133,9 +136,8 @@ def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_mi
     samples_enc = encode_samples(tables, samples, table2vec)
 
     predicates_enc, joins_enc = encode_data(predicates, joins, column_min_max_dnv_vals, column2vec, op2vec, join2vec)
-
-    label_norm, card_max_val, card_min_val = normalize_labels(label, model_column_dnv_vals)
-
+    model_column_dnv_list = [model_column_dnv_vals[key] for key in model_column_dnv_vals]
+    label_norm, card_max_val, card_min_val = normalize_labels(label, model_column_dnv_list)
 
     num_queries = len(label_norm)
     # Split in training and validation samples

@@ -1,5 +1,6 @@
 import argparse
 import csv
+import queue
 import time
 import os
 
@@ -8,6 +9,7 @@ from torch.autograd import Variable
 from torch.utils.data import DataLoader
 
 from myCE2.mymscn.myDB import get_model_info, get_models_dnv_vals, get_db_column_min_max_dnv_vals
+from myCE2.mymscn.myparser import split_sqlArr_to_access_sqlJsons, sqlJson_to_sqlArr
 from mymscn.myutil import *
 from mymscn.mydata import get_model_datasets, load_model_data
 from mymscn.mynn import my_nn
@@ -44,10 +46,6 @@ def qerror_loss(preds, targets, min_val, max_val, column_dnv):
     #     else:
     #         qerror.append(targets[i] / preds[i])
     # return torch.mean(torch.cat(qerror))
-
-
-def predict_row(n_network, data_loader, cuda):
-    pass
 
 
 def predict(n_network, data_loader, cuda):
@@ -99,6 +97,12 @@ def print_qerror(preds_unnorm, labels_unnorm):
     print("Mean: {}".format(np.mean(qerror)))
 
 
+# 读取模型的相关配置
+global_modelConfigInfo = get_model_info()
+global_column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
+global_model_dnv_vals = get_models_dnv_vals()
+
+
 # 构建和训练神经网络模型
 def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, cuda):
 
@@ -110,7 +114,7 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_u
     # 读取模型的相关配置
     modelConfigInfo = get_model_info()
     column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
-    model_dnv_vals = get_models_dnv_vals()
+    models_properties_dnv_vals = get_models_dnv_vals()
     num_materialized_samples = 1000
 
     models = {}
@@ -118,16 +122,17 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_u
     for modelFileName in modelFiles:
         # 循环读取每个文件名
 
-        if i > 0:
+        if i > 1:
             break
-        i = i + 1
+        # i = i + 1
 
         modelFilePath = modelDataPath + '/' + modelFileName
         model_name = os.path.basename(modelFilePath).split('.')[0]
 
         print("-----------------------------------------------------model: %s construct start" % model_name)
 
-        model_column_dnv_vals = model_dnv_vals[model_name]
+        model_column_dnv_vals = models_properties_dnv_vals[model_name]
+        model_column_dnv_list = [model_column_dnv_vals[key] for key in model_column_dnv_vals]
 
         # Load training and validation data
         dicts, \
@@ -161,16 +166,16 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_u
             'train_label': labels_train,
             'test_data': test_data,
             'test_label': labels_test,
-            'model_column_dnv': model_column_dnv_vals
+            'model_column_dnv': model_column_dnv_list
         }
 
         # 神经网络结构
         sample_feats_num = len(table2vec)
         predicate_feats_num = len(column2vec) + len(op2vec) + 1
         join_feats_num = len(join2vec)
-        label_units_num = len(model_column_dnv_vals) + 1
+        label_units_num = len(model_column_dnv_list) + 1
         n_network = my_nn(sample_feats_num, predicate_feats_num, join_feats_num, label_units_num, hid_units)
-        optimizer = torch.optim.Adam(n_network.parameters(), lr=0.001)
+        optimizer = torch.optim.Adam(n_network.parameters(), lr=0.005)
 
         model = {
             'model_name': model_name,
@@ -259,6 +264,41 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_u
     return models
 
 
+# 预测一行已存在对应模型的sql的基数
+def predict_access_sqlArr(sqlArr_str, tar_model):
+    sqlArr = sqlArr_str.split('#')
+    model_name = tar_model['model_name']
+    model_tables_str = sqlArr[0]
+    joins_str = sqlArr[1]
+    predicates_str = sqlArr[2]
+    # card_and_dnv_str = sqlArr[3]
+
+    model_nn = tar_model['model_n_networl']
+    min_val = tar_model['model_data']['card_min']
+    max_val = tar_model['model_data']['card_max']
+
+    table2vec, column2vec, op2vec, join2vec = tuple(
+        tar_model['model_data']['dists'][key] for key in tar_model['model_data']['dists'])
+
+    samples_vec, samples_mask = encode_row_samples(model_tables_str, [], table2vec)
+    predicates_vec, predicates_mask, joins_vec, joins_mask = encode_row_data(predicates_str, joins_str,
+                                                                             global_column_min_max_dnv_vals, column2vec,
+                                                                             op2vec, join2vec)
+
+    model_nn.zero_grad()
+    outputs = model_nn(samples_vec, predicates_vec, joins_vec, samples_mask, predicates_mask, joins_mask)
+
+    predict_card_dnv = unnormalize_row_outputs(outputs, min_val, max_val, list(global_model_dnv_vals[model_name].values()))
+    predict_row_result = predict_card_dnv.detach().numpy().tolist()
+
+    card = predict_row_result[0]
+    properties_dnv = {}
+    model_column_properties = global_modelConfigInfo[model_name]['properties']
+    for i, column_properties in enumerate(model_column_properties):
+        properties_dnv[column_properties] = predict_row_result[i+1]
+    return card, properties_dnv
+
+
 # train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
 def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_size, hid_units, cuda):
     """
@@ -270,14 +310,9 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
     cuda:是否启用cuda
     """
 
-    # 读取模型的相关配置
-    modelConfigInfo = get_model_info()
-    column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
-    model_dnv_vals = get_models_dnv_vals()
-
     tables_model_map = {}
-    for key in modelConfigInfo:
-        tables_model_map[','.join(modelConfigInfo[key]['table'])] = key
+    for key in global_modelConfigInfo:
+        tables_model_map[','.join(global_modelConfigInfo[key]['table'])] = key
 
     models = model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, cuda)
 
@@ -286,77 +321,92 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
     # Load test data
     file_name = "data/model_test_data/" + test_file_name + ".csv"
     with open(file_name, 'r') as f:
-        data_raw = list(list(rec) for rec in csv.reader(f, delimiter='#'))
-        for row in data_raw:
+        for row_str in f:
+            row = row_str.split('#')
             print(row)
             model_tables_str = row[0]
-            if model_tables_str in tables_model_map.keys():
-                joins_str = row[1]
-                predicates_str = row[2]
-                card_and_dnv_str = row[3]
-
+            true_card = row[3].split(',')[0]
+            if model_tables_str in tables_model_map.keys() and tables_model_map[model_tables_str] in models.keys():
                 model_name = tables_model_map[model_tables_str]
                 tar_model = models[model_name]
-                model_nn = tar_model['model_n_networl']
-                min_val = tar_model['model_data']['card_min']
-                max_val = tar_model['model_data']['card_max']
-
-                table2vec, column2vec, op2vec, join2vec = tuple(tar_model['model_data']['dists'][key] for key in tar_model['model_data']['dists'])
-
-                samples_vec, samples_mask = encode_row_samples(model_tables_str, [], table2vec)
-                predicates_vec, predicates_mask, joins_vec, joins_mask = encode_row_data(predicates_str, joins_str, column_min_max_dnv_vals, column2vec, op2vec, join2vec)
-
-                model_nn.zero_grad()
-                outputs = model_nn(samples_vec, predicates_vec, joins_vec, samples_mask, predicates_mask, joins_mask)
-
-                predict_card_dnv = unnormalize_row_outputs(outputs, min_val, max_val, model_dnv_vals[model_name])
-                predict_row_result = predict_card_dnv.detach().numpy().tolist()
-                predict_result.append(predict_row_result)
-                pass
+                card, _ = predict_access_sqlArr(row_str, tar_model)
+                predict_result.append('%s,%s' % (card, true_card))
             else:
-                pass
+                access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
+                # print(access_sqlJsons)
+                ele_queue = queue.Queue()
+                for key in access_sqlJsons:
+                    access_sqlJson = access_sqlJsons[key]
+                    access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
+                    access_sqlArr_tables_str = access_sqlArr.split('#')[0]
+                    model_name = tables_model_map[access_sqlArr_tables_str]
+                    tar_model = models[model_name]
+                    card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
+
+                    connect_keys = {}
+                    joins = access_sqlJson['exports']
+                    for join_str in joins:
+                        join_columns = join_str.split('=')
+                        left_column = join_columns[0]
+                        right_column = join_columns[1]
+                        if left_column in column_dnv.keys():
+                            connect_keys[join_str] = column_dnv[left_column]
+                        else:
+                            connect_keys[join_str] = column_dnv[right_column]
+
+                    element = {
+                        'card': card,
+                        'joins': joins,
+                        'connect_keys': connect_keys
+                    }
+                    ele_queue.put(element)
+                # print(ele_queue)
+                first_ele = ele_queue.get()
+                while not ele_queue.empty():
+                    tmp_ele = ele_queue.get()
+                    if first_ele['joins'].isdisjoint(tmp_ele['joins']):
+                        ele_queue.put(tmp_ele)
+                        continue
+                    else:
+                        intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
+                        intersection_join_str = intersection_joins.pop()
+                        new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
+
+                        first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
+                        tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
+
+                        new_connect_keys = dict()
+                        new_connect_keys.update(first_ele['connect_keys'])
+                        new_connect_keys.update(tmp_ele['connect_keys'])
 
 
-    joins, predicates, tables, samples, label = load_model_data(file_name, [])
+                        first_card = first_ele['card']
+                        tmp_card = tmp_ele['card']
+                        new_card = (first_card*tmp_card) / max(first_dnv, tmp_dnv)
 
-    # Get feature encoding and proper normalization
-    samples_test = encode_samples(tables, samples, table2vec)
-    predicates_test, joins_test = encode_data(predicates, joins, column_min_max_vals, column2vec, op2vec, join2vec)
-    labels_test, _, _ = normalize_labels(label, min_val, max_val)
-
-    print("Number of test samples: {}".format(len(labels_test)))
-
-    max_num_predicates = max([len(p) for p in predicates_test])
-    max_num_joins = max([len(j) for j in joins_test])
-
-    # Get test set predictions
-    test_data = make_dataset(samples_test, predicates_test, joins_test, labels_test, max_num_joins, max_num_predicates)
-    test_data_loader = DataLoader(test_data, batch_size=batch_size)
-
-    preds_test, t_total = predict(model, test_data_loader, cuda)
-    print("Prediction time per test sample: {}".format(t_total / len(labels_test) * 1000))
-
-    # Unnormalize
-    preds_test_unnorm = unnormalize_labels(preds_test, min_val, max_val)
+                        first_ele = {
+                            'card': new_card,
+                            'joins': new_joins,
+                            'connect_keys': new_connect_keys
+                        }
+                predict_result.append('%s,%s' % (first_ele['card'], true_card))
 
     # Print metrics
     print("\nQ-Error " + test_file_name + ":")
-    print_qerror(preds_test_unnorm, label)
-
     # Write predictions
     file_name = "results/predictions_" + test_file_name + "_" + str(int(time.time())) + ".csv"
     os.makedirs(os.path.dirname(file_name), exist_ok=True)
     with open(file_name, "w") as f:
-        for i in range(len(preds_test_unnorm)):
-            f.write(str(preds_test_unnorm[i]) + "," + label[i] + "\n")
+        for card_result in predict_result:
+            f.write("%s\n" % card_result)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test')
+    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test_last')
     parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.9)
-    parser.add_argument("--epochs", help="number of epochs (default: 10)", type=int, default=100)
-    parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=1024)
+    parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=100)
+    parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=300)
     parser.add_argument("--hid", help="number of hidden units (default: 256)", type=int, default=256)
     parser.add_argument("--cuda", help="use CUDA", action="store_true")
     args = parser.parse_args()

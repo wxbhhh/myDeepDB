@@ -1,7 +1,7 @@
 # 读取模型的相关配置
 import copy
 
-from myCE.mymscn.myDB import get_model_info, get_db_column_min_max_dnv_vals
+from myCE2.mymscn.myDB import get_model_info, get_db_column_min_max_dnv_vals
 
 db_column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
 
@@ -346,7 +346,7 @@ def get_all_policy(base_subset_list, base_subsets_index):
                     else:
                         union_subsets_index = new_sets_list.index(local_temp_subset)
                         union_subsets = subsets_index[union_subsets_index]
-                        if len(union_subsets)==1 and len(union_subsets[0])==1:
+                        if len(union_subsets) == 1 and len(union_subsets[0]) == 1:
                             continue
                         else:
                             if(i, k) not in union_subsets:
@@ -355,8 +355,6 @@ def get_all_policy(base_subset_list, base_subsets_index):
         # print(new_sets_list)
         new_sets_size = len(new_sets_list)
         temp_sets_list = copy.deepcopy(new_sets_list)
-
-
 
     for i in subsets_index:
         for k, model_policy_tuple in enumerate(subsets_index[i]):
@@ -373,6 +371,44 @@ def get_all_policy(base_subset_list, base_subsets_index):
     return new_sets_list, subsets_index, policy
 
 
+def get_all_sets_and_policy():
+    model_info = get_model_info()
+    base_subsets_list = []
+    base_subsets_index = {}
+    index = 0
+    for model_name in model_info.keys():
+        model = model_info[model_name]
+        subset = set(model['table'])
+        base_subsets_list.append(subset)
+        base_subsets_index[index] = [(index,)]
+        index += 1
+    all_sets_list, _, policy = get_all_policy(base_subsets_list, base_subsets_index)
+    return all_sets_list, policy, base_subsets_list
+
+
+global_all_sets_list, global_policy, global_base_subsets_list = get_all_sets_and_policy()
+
+
+# 将分割好的sqlArr划分成几个可执行的sqlJson
+def split_sqlArr_to_access_sqlJsons(sqlArr):
+    tar_model_table_sets = set(sqlArr.split('#')[0].split(','))
+    tar_model_index = global_all_sets_list.index(tar_model_table_sets)
+    tar_model_policy = global_policy[tar_model_index]
+    table_subsets_turple = ()
+    for subset_index in tar_model_policy:
+        table_subsets_turple = table_subsets_turple + (global_base_subsets_list[subset_index],)
+    sqlJsons = split_sqlArr_to_sqlJsons_by_policy(sqlArr, table_subsets_turple)
+
+    return sqlJsons
+
+    # access_sqlArrs = []
+    # for sqlJson_key in sqlJsons:
+    #     sqlJson = sqlJsons[sqlJson_key]
+    #     access_sqlArr = sqlJson_to_sqlArr(sqlJson)
+    #     access_sqlArrs.append(access_sqlArr)
+    # return access_sqlArrs
+
+
 def test_sql_and_json(sqlArr):
     print('++++++++++++++++++++++++++++++++++++++++++++++++++++ start')
     sql_jsons_dict = split_sqlArr_to_sqlJsons(sqlArr)
@@ -384,7 +420,8 @@ def test_sql_and_json(sqlArr):
         'tables': set(),
         'predicates': set(),
         'joins': set(),
-        'exports': set()
+        'exports': set(),
+        'exports_properties': set()
     }
 
     for key in sql_jsons_dict:
@@ -416,6 +453,8 @@ def test1():
     test_sql3 = 'title t,movie_companies mc,cast_info ci#t.id=mc.movie_id,t.id=ci.movie_id#mc.company_id,=,27,t.id,>,1000000,mc.company_type_id,=,1,ci.person_id,<,1265390#96573'
     test_sql_and_json(test_sql3)
 
+    test_sql4 = 'cast_info ci,movie_companies mc#ci.movie_id=mc.movie_id#ci.person_id,>,50,ci.role_id,>,3,mc.company_id,>,11328,mc.company_type_id,=,2#20'
+    test_sql_and_json(test_sql4)
 
 # 测试通过基本子集合列表生成所有子集合列表的合并策略
 def test2():
