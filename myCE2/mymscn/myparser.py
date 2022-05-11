@@ -1,5 +1,6 @@
 # 读取模型的相关配置
 import copy
+import os
 
 from myCE2.mymscn.myDB import get_model_info, get_db_column_min_max_dnv_vals
 
@@ -10,6 +11,31 @@ db_column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
 def get_properties_max_min_val(properties_name):
     properties_info = db_column_min_max_dnv_vals[properties_name]
     return properties_info['max'], properties_info['min']
+
+
+def get_tableset_tablestr_list():
+    tableset_list = []
+    tablestr_list = []
+
+    current_path = os.path.dirname(__file__)
+    modelConfigPath = '{}/../config/model_config.csv'.format(current_path)
+    with open(modelConfigPath, 'r') as modelConfigFile:
+        for row in modelConfigFile:
+            lineArr = row.split(',')
+            modelTableset = set(lineArr[2].split('#'))
+            modelTablestr = lineArr[2].replace('#', ',')
+
+            tableset_list.append(modelTableset)
+            tablestr_list.append(modelTablestr)
+    return tableset_list, tablestr_list
+
+
+global_tableset_list, global_tablestr_list = get_tableset_tablestr_list()
+
+
+def get_tablestr_of_tableset(tableset):
+    index = global_tableset_list.index(tableset)
+    return global_tablestr_list[index]
 
 
 # 将分割好的sql转化成特殊的json格式，例如：
@@ -276,7 +302,12 @@ def sqlJson_to_sqlArr(json):
     tables = json['tables']
     joins = json['joins']
     predicates = json['predicates']
-    sql = ','.join(tables) + "#" + ','.join(joins) + "#" + ','.join(predicates)
+
+    # tables_str = ','.join(tables)
+    tables_str = get_tablestr_of_tableset(set(tables))
+    joins_str = ','.join(joins)
+    predicates_str = ','.join(predicates)
+    sql = tables_str + "#" + joins_str + "#" + predicates_str
 
     return sql
 

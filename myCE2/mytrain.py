@@ -104,7 +104,7 @@ global_model_dnv_vals = get_models_dnv_vals()
 
 
 # 构建和训练神经网络模型
-def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, cuda):
+def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_hid_units, cuda):
 
     timeStamp = time.strftime("%Y%m%d%H%M%S")
     modelDataPath = './data/model_train_data'
@@ -174,6 +174,7 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_u
         predicate_feats_num = len(column2vec) + len(op2vec) + 1
         join_feats_num = len(join2vec)
         label_units_num = len(model_column_dnv_list) + 1
+        hid_units = base_hid_units//4*len(model_column_dnv_list)
         n_network = my_nn(sample_feats_num, predicate_feats_num, join_feats_num, label_units_num, hid_units)
         optimizer = torch.optim.Adam(n_network.parameters(), lr=0.005)
 
@@ -322,7 +323,7 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
     file_name = "data/model_test_data/" + test_file_name + ".csv"
     with open(file_name, 'r') as f:
         for row_str in f:
-            row = row_str.split('#')
+            row = row_str.strip().split('#')
             print(row)
             model_tables_str = row[0]
             true_card = row[3].split(',')[0]
@@ -330,7 +331,7 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
                 model_name = tables_model_map[model_tables_str]
                 tar_model = models[model_name]
                 card, _ = predict_access_sqlArr(row_str, tar_model)
-                predict_result.append('%s,%s' % (card, true_card))
+                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), card, true_card))
             else:
                 access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
                 # print(access_sqlJsons)
@@ -389,12 +390,13 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
                             'joins': new_joins,
                             'connect_keys': new_connect_keys
                         }
-                predict_result.append('%s,%s' % (first_ele['card'], true_card))
+                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
 
     # Print metrics
     print("\nQ-Error " + test_file_name + ":")
     # Write predictions
-    file_name = "results/predictions_" + test_file_name + "_" + str(int(time.time())) + ".csv"
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    file_name = "results/predictions_" + test_file_name + "_" + timeStamp + ".csv"
     os.makedirs(os.path.dirname(file_name), exist_ok=True)
     with open(file_name, "w") as f:
         for card_result in predict_result:
@@ -406,8 +408,8 @@ def main():
     parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test_last')
     parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.9)
     parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=100)
-    parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=300)
-    parser.add_argument("--hid", help="number of hidden units (default: 256)", type=int, default=256)
+    parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=200)
+    parser.add_argument("--hid", help="base number of hidden units (default: 256)", type=int, default=356)
     parser.add_argument("--cuda", help="use CUDA", action="store_true")
     args = parser.parse_args()
     train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
