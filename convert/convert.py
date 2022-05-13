@@ -80,10 +80,10 @@ def train_csv_convert(outDir):
     modelIndex = dict(zip(queryType, queryTypeSize))
     print(modelIndex)
 
-    dbInfo = getDBInfo()
+    dbInfo = getDBMoreInfo()
     addInfo = {}
     for tableName in dbInfo.keys():
-        properties = dbInfo[tableName]
+        properties = dbInfo[tableName]['properties']
         countProperties = []
         for propertiesName in properties:
             countProperties.append('count(distinct(%s.%s))' % (tableNameAlias[tableName], propertiesName))
@@ -108,18 +108,21 @@ def train_csv_convert(outDir):
 
         modelConfig = '%s,model_%s,%s,' % (modelIndex[query], modelIndex[query], query.replace(',', '#').strip())
         modelProperties = []
+        model_card = 1
         for tableStr in query.split(','):
             tableName = tableStr.split(' ')[0]
-            tableProperties = dbInfo[tableName]
+            tableProperties = dbInfo[tableName]['properties']
+            model_card = model_card*dbInfo[tableName]['card']
             for properties in tableProperties:
                 modelProperties.append((tableNameAlias[tableName] + '.' + properties))
-        modelConfig += '#'.join(modelProperties) + '\n'
+        modelConfig += '#'.join(modelProperties) + (',%s\n' % model_card)
         configInfo.append(modelConfig)
 
     # 模型相关信息的配置文件
     modelConfigFilePath = (outDir + "train_model_config_%s.csv" % timeStamp)
     with open(modelConfigFilePath, 'a') as configFile:
         configFile.writelines(configInfo)
+
 
     # 分割文件
     with open(filePath, 'r') as f:
