@@ -32,12 +32,20 @@ def get_model_info():
             lineArr = row.strip().split(',')
             modelName = lineArr[1]
             if modelName not in access_model:
-                continue
+                pass
+                # continue
             modelIndex = lineArr[0]
             modelTables = lineArr[2].split('#')
             modelProperties = lineArr[3].strip().split('#')
             card = int(lineArr[4])
-            model = {'index': modelIndex, 'table': modelTables, 'properties': modelProperties, 'card': card}
+            valid = int(lineArr[5])
+            model = {
+                'index': modelIndex,
+                'table': modelTables,
+                'properties': modelProperties,
+                'card': card,
+                'valid': valid
+            }
             modelConfigInfo[modelName] = model
     return modelConfigInfo
 

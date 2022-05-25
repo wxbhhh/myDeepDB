@@ -55,7 +55,7 @@ docker container top <container-name or container-id>
 ```
 docker container attach  <container-name or container-id>
 ```
-进入后再使用exit， 容器停止
+使用以上命令进入容器后再使用exit， 容器停止
 ### 容器查看
 ```
 docker container ls

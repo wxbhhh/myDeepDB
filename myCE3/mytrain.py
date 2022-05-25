@@ -122,39 +122,38 @@ global_model_dnv_vals = get_models_dnv_vals()
 # 构建和训练神经网络模型
 def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_hid_units, lr, cuda):
 
-    timeStamp = time.strftime("%Y%m%d%H%M%S")
     modelDataPath = './data/model_train_data'
     modelFiles = os.listdir(modelDataPath)  # 采用listdir来读取所有文件
     modelFiles.sort()  # 排序
 
-    # 读取模型的相关配置
-    modelConfigInfo = get_model_info()
-    column_min_max_dnv_vals = get_db_column_min_max_dnv_vals()
-    models_properties_dnv_vals = get_models_dnv_vals()
     num_materialized_samples = 1000
 
     models = {}
     i = 0
-    for modelFileName in modelFiles:
-        # 循环读取每个文件名
-
+    # 循环读取每个文件名
+    for modelFileNamePrefix in global_modelConfigInfo.keys():
+    # for modelFileName in modelFiles:
         # if i > 1:
         #     break
 
-        i = i + 1
+        # i = i + 1
+        #
+        # if i != 3:
+        #     continue
 
-        if i != 4:
+        is_valid = global_modelConfigInfo[modelFileNamePrefix]['valid']
+        if is_valid < 1:
             continue
 
-
-        modelFilePath = modelDataPath + '/' + modelFileName
+        # modelFilePath = modelDataPath + '/' + modelFileName
+        modelFilePath = modelDataPath + '/' + modelFileNamePrefix + ".csv"
         model_name = os.path.basename(modelFilePath).split('.')[0]
 
         print("-----------------------------------------------------model: %s construct start" % model_name)
 
-        model_column_dnv_vals = models_properties_dnv_vals[model_name]
+        model_column_dnv_vals = global_model_dnv_vals[model_name]
         model_column_dnv_list = [model_column_dnv_vals[key] for key in model_column_dnv_vals]
-        model_max_card = modelConfigInfo[model_name]['card']
+        model_max_card = global_modelConfigInfo[model_name]['card']
 
         # Load training and validation data
         dicts, \
@@ -167,7 +166,7 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_
             = get_model_datasets(
             modelFilePath,
             model_column_dnv_vals,
-            column_min_max_dnv_vals,
+            global_column_min_max_dnv_vals,
             num_queries_percent,
             num_materialized_samples,
             model_max_card
@@ -357,11 +356,13 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
             print(row)
             model_tables_str = row[0]
             true_card = row[3].split(',')[0]
+            # 已存在模型与sql对应，直接输出基数
             if model_tables_str in tables_model_map.keys() and tables_model_map[model_tables_str] in models.keys():
                 model_name = tables_model_map[model_tables_str]
                 tar_model = models[model_name]
                 card, _ = predict_access_sqlArr(row_str, tar_model)
                 predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), card, true_card))
+            # 不存在模型与sql对应，进行拆分，间接估计基数
             else:
                 access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
                 # print(access_sqlJsons)
@@ -530,9 +531,9 @@ def predict_with_exist_nn(test_file_name, nn_file_name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test9')
+    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test15')
     parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.95)
-    parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=200)
+    parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=5)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=100)
     parser.add_argument("--hid", help="base number of hidden units (default: 256)", type=int, default=120)
     parser.add_argument("--cuda", help="use CUDA", action="store_true", default=False)
