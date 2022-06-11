@@ -4,7 +4,7 @@ import random
 import torch
 from torch.utils.data import dataset
 
-from mine.mscn.util import *
+from origin.mscn.util import *
 
 
 def load_data(file_name, num_materialized_samples, is_train=False):
