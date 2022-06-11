@@ -1,11 +1,13 @@
 import csv
+import random
+
 import torch
 from torch.utils.data import dataset
 
-from origin.mscn.util import *
+from mine.mscn.util import *
 
 
-def load_data(file_name, num_materialized_samples):
+def load_data(file_name, num_materialized_samples, is_train=False):
     joins = []
     predicates = []
     tables = []
@@ -15,35 +17,19 @@ def load_data(file_name, num_materialized_samples):
     # Load queries
     with open(file_name + ".csv", 'rU') as f:
         data_raw = list(list(rec) for rec in csv.reader(f, delimiter='#'))
+
+        if is_train:
+            # 打乱序列
+            random.shuffle(data_raw)
+
         for row in data_raw:
             tables.append(row[0].split(','))
             joins.append(row[1].split(','))
             predicates.append(row[2].split(','))
-            if int(row[3]) < 1:
-                print("Queries must have non-zero cardinalities")
-                exit(1)
-            label.append(row[3])
+            card_and_dnv = row[3]
+            card = card_and_dnv.split(',')[0]
+            label.append(card)
     print("Loaded queries")
-
-    # Load bitmaps
-    num_bytes_per_bitmap = int((num_materialized_samples + 7) >> 3)
-    with open(file_name + ".bitmaps", 'rb') as f:
-        for i in range(len(tables)):
-            four_bytes = f.read(4)
-            if not four_bytes:
-                print("Error while reading 'four_bytes'")
-                exit(1)
-            num_bitmaps_curr_query = int.from_bytes(four_bytes, byteorder='little')
-            bitmaps = np.empty((num_bitmaps_curr_query, num_bytes_per_bitmap * 8), dtype=np.uint8)
-            for j in range(num_bitmaps_curr_query):
-                # Read bitmap
-                bitmap_bytes = f.read(num_bytes_per_bitmap)
-                if not bitmap_bytes:
-                    print("Error while reading 'bitmap_bytes'")
-                    exit(1)
-                bitmaps[j] = np.unpackbits(np.frombuffer(bitmap_bytes, dtype=np.uint8))
-            samples.append(bitmaps)
-    print("Loaded bitmaps")
 
     # Split predicates
     predicates = [list(chunks(d, 3)) for d in predicates]
@@ -55,7 +41,7 @@ def load_and_encode_train_data(num_queries, num_materialized_samples):
     file_name_queries = "data/train"
     file_name_column_min_max_vals = "data/column_min_max_vals.csv"
 
-    joins, predicates, tables, samples, label = load_data(file_name_queries, num_materialized_samples)
+    joins, predicates, tables, samples, label = load_data(file_name_queries, num_materialized_samples, is_train=True)
 
     # Get column name dict
     column_names = get_all_column_names(predicates)
@@ -88,6 +74,7 @@ def load_and_encode_train_data(num_queries, num_materialized_samples):
     label_norm, min_val, max_val = normalize_labels(label)
 
     # Split in training and validation samples
+    num_queries = len(samples_enc)
     num_train = int(num_queries * 0.9)
     num_test = num_queries - num_train
 

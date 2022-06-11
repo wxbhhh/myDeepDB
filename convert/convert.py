@@ -1,4 +1,5 @@
 import csv
+import os
 import time
 
 from tool.dbTool import *
@@ -172,8 +173,172 @@ def test_csv_convert(fileName='scale', outDir='./data_prepared/'):
                 sqlFile.write('\n')
 
 
+# 将多个csv文件合并到一起
+def csv_connect_data():
+
+    modelDataPath = './file'
+
+    modelDataFiles = os.listdir(modelDataPath)  # 采用listdir来读取所有文件
+    modelDataFiles.sort()  # 排序
+
+    train_data_file_path = './out/train.csv'
+    with open(train_data_file_path, 'w') as train_data_file:
+        for modelFileName in modelDataFiles:
+            modelFilePath = modelDataPath + '/' + modelFileName
+            with open(modelFilePath, 'r') as model_file:
+                for row in model_file:
+                    train_data_file.write(row)
+
+
+# 拆分
+def split_into_two():
+    filePath = './data_train/train.csv'
+
+    tables = []
+    with open(filePath, 'r') as f:
+        data_raw = list(list(rec) for rec in csv.reader(f, delimiter='#'))
+        for row in data_raw:
+            tables.append(row[0].split(','))
+
+    # 获取文件内不同的查询类型
+    queryType = getQueryTypes(tables)
+    queryType = list(queryType.intersection(queryType))
+    list.sort(queryType)
+    for queryTables in queryType:
+        print(queryTables)
+    print(len(queryType))
+
+    # 列表转字典：使用内置函数zip
+    queryTypeSize = range(len(queryType))
+    modelIndex = dict(zip(queryType, queryTypeSize))
+    print(modelIndex)
+
+    dbInfo = getDBMoreInfo()
+    addInfo = {}
+    for tableName in dbInfo.keys():
+        properties = dbInfo[tableName]['properties']
+        countProperties = []
+        for propertiesName in properties:
+            countProperties.append('count(distinct(%s.%s))' % (tableNameAlias[tableName], propertiesName))
+        addInfo[tableName] = countProperties
+
+
+    csv_file_dir = './data_origin'
+    false_csv_dir_path = './output/false_csv'
+    false_sql_dir_path = './output/false_sql'
+    true_csv_dir_path = './output/true_csv'
+
+    mkdir(false_csv_dir_path)
+    mkdir(true_csv_dir_path)
+    mkdir(false_sql_dir_path)
+
+    csvFiles = os.listdir(csv_file_dir)  # 采用listdir来读取所有文件
+    csvFiles.sort()  # 排序
+
+    false_all = 0
+    true_all = 0
+    for csvFileName in csvFiles:
+        true_csv_file = open(true_csv_dir_path + '/' + csvFileName, 'w')
+        sqlFileName = csvFileName.split(',')[0] + '.sql'
+        false_sql_file = open(false_sql_dir_path + '/' + sqlFileName, 'w')
+        false_csv_file = open(false_csv_dir_path + '/' + csvFileName, 'w')
+
+        cur_false_num = 0
+        cur_true_num = 0
+        with open(csv_file_dir + '/' + csvFileName, 'r') as csvFile:
+            for row in csvFile:
+                if 'title t' in row:
+                    if ('t.production_year,<=' in row) or ('t.production_year,<' in row) or \
+                        ('t.production_year,=>' in row) or ('t.production_year,>' in row) or \
+                            ('t.production_year,=' in row):
+                        true_all += 1
+                        cur_true_num += 1
+                        true_csv_file.write(row)
+                    else:
+                        sql = rowToSQL(row, addInfo)
+                        false_csv_file.write(row)
+                        false_sql_file.write(sql + '\n')
+                        false_all += 1
+                        cur_false_num += 1
+                else:
+                    cur_true_num += 1
+                    true_all += 1
+                    true_csv_file.write(row)
+
+        print('%s 出错：%s' % (csvFileName, cur_false_num))
+        print('%s 正确：%s' % (csvFileName, cur_true_num))
+
+        true_csv_file.close()
+        false_csv_file.close()
+        false_sql_file.close()
+
+    print('------------------------------------------')
+    print('共出错：%s' % false_all)
+    print('共正确：%s' % true_all)
+
+
+# 将sqlArr 和查询结果连接
+def dataConvertMain():
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    dataSqlPath = './model_sql'
+    dataResultPath = './model_result'
+    convertDataPath = './concat_data_%s' % timeStamp
+    mkdir(convertDataPath)
+
+    sqlFiles = os.listdir(dataSqlPath)  # 采用listdir来读取所有文件
+    sqlFiles.sort()  # 排序
+
+    for fileName in sqlFiles:  # 循环读取每个文件名
+        baseName = fileName.split('.')[0]
+        sqlFilePath = dataSqlPath + '/' + baseName + '.csv'
+        resultFilePath = dataResultPath + '/' + baseName + '_result.csv'
+        with open(sqlFilePath, 'r') as sqlFile:
+            with open(resultFilePath, 'r') as resultFile:
+                sqlLists = sqlFile.readlines()
+                resultLists = resultFile.readlines()
+
+                concatResultLists = []
+                for i in range(len(resultLists)):
+                    sql = sqlLists[i].split('#')
+                    result = resultLists[i]
+                    concatResult = sql[0] + '#' + sql[1] + '#' + sql[2] + '#' + result
+                    concatResultLists.append(concatResult)
+                concatResultFilePath = convertDataPath + '/' + baseName + '.csv'
+                with open(concatResultFilePath, 'a') as concatResultFile:
+                    concatResultFile.writelines(concatResultLists)
+
+
+# 过滤基数为0的sql
+def dataFilter():
+    dataSqlArrPath = './file'
+    dataResultPath = './out'
+
+    sqlFiles = os.listdir(dataSqlArrPath)  # 采用listdir来读取所有文件
+    sqlFiles.sort()  # 排序
+
+    for fileName in sqlFiles:  # 循环读取每个文件名
+        baseName = fileName.split('.')[0]
+        sqlFilePath = dataSqlArrPath + '/' + baseName + '.csv'
+
+        with open(sqlFilePath, 'r') as sqlFile:
+            sqlLists = sqlFile.readlines()
+            resultLists = []
+            for line in sqlLists:
+                sqlArr = line.split('#')
+                card_and_dnv = sqlArr[3]
+                card = int(card_and_dnv.split(',')[0])
+                if card > 0:
+                    resultLists.append(line)
+
+        resultFilePath = dataResultPath + '/' + baseName + '.csv'
+        with open(resultFilePath, 'w') as resultFile:
+            resultFile.writelines(resultLists)
+
+
 if __name__ == "__main__":
-    train_csv_convert('./data_prepared/')
+    csv_connect_data()
+    # train_csv_convert('./data_prepared/')
     # test_csv_convert('scale', './data_prepared/')
     # test_csv_convert('synthetic', './data_prepared/')
     # test_csv_convert('job-light', './data_prepared/')
+    # dataFilter()

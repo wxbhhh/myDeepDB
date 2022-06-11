@@ -1,0 +1,490 @@
+title t#movie_info_idx mi_idx,785982.5739216403,282216,1
+title t,1595685.625,1102591,0
+title t#movie_companies mc#cast_info ci#movie_info mi,4154803.7762827585,11219270,1
+movie_info_idx mi_idx,1347691.875,459925,0
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,63063440.71235758,38865472494,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,15031213.637043197,254784844,1
+movie_keyword mk,2613722.75,2476485,0
+title t#movie_keyword mk,4336555.187920251,2947646,1
+movie_info mi,598322.1875,1533909,0
+title t#movie_companies mc,2132564.8074736823,2569809,1
+movie_info_idx mi_idx,630342.875,460185,0
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,16663205.653406354,7941534,1
+title t,114500.71875,118972,0
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,19189918.1161338,846677296,1
+title t#movie_keyword mk,4446249.2042235015,4484651,1
+title t#movie_info mi,7288812.97570565,9269177,1
+title t#movie_keyword mk,4035454.3652597247,183146,1
+title t#movie_companies mc#movie_info mi,4837560.80959651,17766301,1
+title t#movie_info_idx mi_idx,1046271.508860713,1374083,1
+title t#movie_keyword mk,4336791.028856112,2961293,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,78288536.25591718,67559509458,1
+title t#movie_info mi,2146654.3853710205,538948,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,197638413.1885273,4546236,1
+title t#movie_info mi#movie_keyword mk,9689437.27590274,51000700,1
+title t#movie_companies mc,997202.272839851,580888,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,6130278.90326655,6251961540,1
+title t#movie_info mi#movie_info_idx mi_idx,3249175.042739624,5145790,1
+title t#movie_keyword mk,33566.817717397375,16,1
+movie_info_idx mi_idx,1359355.75,919850,0
+title t#movie_info mi,1350682.1317074648,10082,1
+title t#cast_info ci#movie_info mi,714307.356531669,945990,1
+title t#movie_companies mc,572722.0294682188,1309234,1
+movie_companies mc,831423.5625,875574,0
+title t#movie_companies mc#movie_info mi#movie_keyword mk,5623486.496575462,18455419,1
+title t#cast_info ci#movie_info mi,138792339.18140236,324909200,1
+title t#cast_info ci,26753265.43103008,14658963,1
+movie_companies mc,2253786.75,1269832,0
+movie_info mi,4883.5771484375,275385,0
+title t#cast_info ci,10.67006700180165,9,1
+title t#movie_keyword mk,4253579.164629578,385388,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,1010540.0006568516,90288195,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,3155720.4467401756,15836828,1
+title t#movie_info mi,9545204.55735198,14222759,1
+title t#movie_keyword mk,4436401.325869365,132607,1
+title t#movie_info mi#movie_info_idx mi_idx,817077.5159243264,112795,1
+movie_keyword mk,1385816.375,1351608,0
+title t,1967824.625,1477988,0
+title t#cast_info ci#movie_info mi#movie_keyword mk,50093013.31581897,473470954,1
+title t#movie_companies mc#movie_info_idx mi_idx,1039609.6202432025,1097860,1
+title t#movie_companies mc,2130544.2557064416,700271,1
+movie_info mi,190270.921875,248072,0
+cast_info ci,9782537.0,9067658,0
+title t#movie_info mi#movie_info_idx mi_idx,3183824.9716479336,13053102,1
+title t#movie_info mi,1450829.3368752785,80792,1
+title t#movie_companies mc#movie_info_idx mi_idx,1218847.5892850144,313464,1
+movie_keyword mk,383565.40625,297845,0
+title t#movie_companies mc,16.254657223468186,1,1
+movie_companies mc,294838.1875,278296,0
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,20991108.478636265,287669230,1
+title t#movie_info mi#movie_info_idx mi_idx,4734105.051305295,15772774,1
+title t#movie_keyword mk,4178075.6178839663,882501,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,14617669.796475084,600130833,1
+title t#movie_info mi#movie_info_idx mi_idx,798327.2332402493,248772,1
+title t#cast_info ci#movie_info mi,6202125.73738622,14702703,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,1253456.2529625602,12628687,1
+movie_keyword mk,888604.6875,854713,0
+cast_info ci,6900508.0,6766807,0
+movie_keyword mk,2641951.25,2547786,0
+title t#movie_companies mc#movie_keyword mk,3408202.6200441495,32196286,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,25661243.74788452,19464995,1
+title t,1462391.0,1483217,0
+title t#movie_info_idx mi_idx#movie_keyword mk,236680.8529734186,177,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,7896523.303068247,177658640,1
+movie_info_idx mi_idx,1271819.0,920110,0
+title t#movie_companies mc,1812200.1979935884,1260575,1
+title t#cast_info ci#movie_info mi,23296926.932154022,89895,1
+title t#movie_info_idx mi_idx#movie_keyword mk,4028041.6838824153,121188,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,128105.7558027902,89964,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,116991403.85298453,170065162,1
+title t#cast_info ci#movie_keyword mk,832000.9251524383,33126388,1
+title t#cast_info ci#movie_keyword mk,62751550.928459376,1774488,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,41537907.34022303,111243322,1
+movie_info mi,10563573.0,7167394,0
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5833680.496471725,187369670,1
+title t#movie_info_idx mi_idx,717072.3737929726,457941,1
+title t#movie_companies mc#cast_info ci#movie_info mi,61026801.93136948,1049271798,1
+title t#movie_info mi,1756538.608878856,3023260,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,25233.65364426069,1028691,1
+cast_info ci,3828613.75,1091591,0
+title t#movie_info_idx mi_idx,1034407.5468656728,60094,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,300216.15579050285,72,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5305399.481990044,4383190969,1
+movie_keyword mk,463115.84375,520878,0
+movie_info mi,8612722.0,5536998,0
+title t#cast_info ci#movie_keyword mk,58636859.447987616,213425069,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2354791.5343591985,8555929,1
+title t#cast_info ci,14038679.484078273,2462657,1
+title t#movie_info mi,7036984.334602877,7104176,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,506112.32807891845,8415,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,1871621.9653630713,1004540,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,170849.16802377478,527034,1
+title t#cast_info ci#movie_keyword mk,34779907.330835335,163635434,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,41912629.509201474,4964765009,1
+movie_info_idx mi_idx,1343389.375,459925,0
+title t#movie_info mi#movie_info_idx mi_idx,5133953.1763389455,3460146,1
+title t,338086.84375,515420,0
+cast_info ci,19244092.0,19479289,0
+title t#movie_info mi#movie_keyword mk,21461068.44163229,67453,1
+title t#movie_companies mc#movie_info mi#movie_keyword mk,8320244.642873614,1368039005,1
+movie_info mi,7479937.0,1944651,0
+title t,383293.0,351991,0
+title t#movie_companies mc#movie_info_idx mi_idx,732079.86194313,2699489,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,4365451.479730138,18149844,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,14646625.464724677,2349571,1
+title t#movie_companies mc#movie_keyword mk,1004676.5228460899,7299543,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,10370790.176873403,16279035,1
+title t#movie_keyword mk,4205390.652519674,2136776,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,79519143.4786344,1083452,1
+title t#movie_keyword mk,4386777.483756574,89713,1
+cast_info ci,17693186.0,12639643,0
+title t#movie_info_idx mi_idx,738095.4007315596,457941,1
+title t#movie_info mi#movie_keyword mk,2845368.8882518485,186189,1
+movie_info mi,7543594.0,8793117,0
+title t#movie_info_idx mi_idx#movie_keyword mk,4245744.9241567245,74351,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,2.7368663172306893,21,1
+movie_keyword mk,3165432.25,3143191,0
+cast_info ci,27471934.0,27208975,0
+title t#movie_info mi,2151117.583924838,15683,1
+title t#movie_keyword mk,4340105.13187586,370512,1
+title t,400361.28125,389859,0
+title t#cast_info ci#movie_info mi,62142671.446739115,88154293,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,2414259.235004886,18876236,1
+title t#movie_companies mc#movie_info mi,2499596.523120596,164162,1
+title t#movie_keyword mk,4445358.869926206,1137947,1
+movie_info_idx mi_idx,1352152.75,459925,0
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,19.623887434231424,5,1
+title t#movie_keyword mk,4196204.383912751,24625,1
+title t#movie_info mi,9542328.455528589,13265781,1
+title t#movie_companies mc,410698.3493683108,60634,1
+movie_info mi,7665070.5,9349020,0
+title t#cast_info ci#movie_info_idx mi_idx,3392300.19983807,1233473,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5961272.881119979,8817053139,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,480371.7413372038,1694835,1
+title t#movie_companies mc,783276.0474478082,20491,1
+title t#movie_companies mc#movie_keyword mk,400141.0652333679,8852,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,1129259.3705998445,1228422066,1
+title t#movie_companies mc,2131893.896173209,2047483,1
+title t#movie_keyword mk,4449778.502661162,2869978,1
+title t#movie_companies mc,1861394.0128990952,705975,1
+title t#movie_info mi#movie_keyword mk,15249046.521529216,59646820,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,10770975.678497655,82230,1
+title t#movie_companies mc#cast_info ci#movie_info mi,2723.0530481515434,224,1
+title t#movie_info mi,7007056.667187403,5710448,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2375288.9507926186,7526800,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,6189298.086539686,127701643,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,5674806.317731797,104556880,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,6788842.532469558,1783767814,1
+title t#movie_info mi,2747131.7793270755,126038,1
+movie_keyword mk,200307.34375,145378,0
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,8842354.436738878,34246126,1
+title t#movie_keyword mk,4456496.7857273845,438620,1
+cast_info ci,28137254.0,29596335,0
+title t#movie_companies mc#cast_info ci#movie_info mi,16258711.7219034,37530020,1
+title t#movie_info mi,6827057.854461054,6626595,1
+title t#movie_keyword mk,70588.21732934046,38,1
+title t#movie_info mi#movie_keyword mk,11476857.342791982,53940863,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,11781653.005643066,83048,1
+title t#movie_info_idx mi_idx#movie_keyword mk,1955162.7641203052,1609,1
+title t#movie_info mi,1970613.532468267,361925,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,12954454.439245729,106815833,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,129255093.25174108,11115310603,1
+title t#cast_info ci#movie_info mi,3391895.422329359,3756078,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,14425230.575884484,139005194,1
+cast_info ci,25580152.0,28702467,0
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,1102429.2630632757,43908349,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,12395744.023809556,15214012,1
+title t#cast_info ci#movie_info_idx mi_idx,6453436.430591262,11350887,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,5389.011447349981,27338,1
+title t#movie_keyword mk,4299833.987959123,1517140,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,32543620.122783948,9107867935,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,1618770.5592658499,707147,1
+title t,776869.3125,744068,0
+title t#movie_info mi#movie_keyword mk,10310408.945112241,108275658,1
+movie_companies mc,123609.078125,396344,0
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,21111528.74584284,802883418,1
+cast_info ci,27.80698013305664,1,0
+title t#movie_companies mc#movie_keyword mk,4138.8994786707935,28,1
+cast_info ci,23083264.0,22516077,0
+title t#movie_keyword mk,726973.9835212344,3449,1
+movie_companies mc,290635.28125,340124,0
+title t#movie_info_idx mi_idx,694585.6317327856,52463,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx,556997.0530537047,30442800,1
+movie_companies mc,1533979.375,1663519,0
+movie_companies mc,2518586.0,1334235,0
+title t#cast_info ci#movie_info mi#movie_keyword mk,123863204.19366509,53743080,1
+title t#movie_companies mc,1379226.6204714174,722509,1
+title t#cast_info ci#movie_info mi,96134151.11401384,39732683,1
+movie_companies mc,381540.25,431968,0
+title t#movie_companies mc#movie_keyword mk,4646193.081823014,11707504,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,115.01259307228386,16,1
+title t#movie_keyword mk,4208524.183081919,684584,1
+cast_info ci,15578337.0,16045526,0
+title t#movie_companies mc#movie_info_idx mi_idx,794181.070492545,343324,1
+title t#movie_companies mc,200316.15979847344,220622,1
+movie_info mi,210530.1875,3036444,0
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,2070523.6812223713,297045,1
+movie_keyword mk,2810677.5,2576640,0
+title t#cast_info ci#movie_keyword mk,11273607.85776368,16008856,1
+title t#cast_info ci#movie_info mi,54527752.41794631,27639008,1
+title t#movie_info mi#movie_info_idx mi_idx,2985720.0501527903,6526551,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,7286833.538718322,3190,1
+title t#cast_info ci,14783000.83515325,12475687,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,1594331.941090838,114305,1
+movie_info mi,594454.625,1288911,0
+title t#movie_info_idx mi_idx,1045313.1139189741,950759,1
+movie_keyword mk,424.1796569824219,1068,0
+movie_companies mc,23.81517219543457,6,0
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,2692170.9346251814,454578144,1
+title t#movie_keyword mk,4230572.16871581,923610,1
+movie_companies mc,1309725.5,1413731,0
+movie_keyword mk,183.50941467285156,1768,0
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,1512856.8623349306,31647453,1
+title t#cast_info ci#movie_keyword mk,48877713.28561101,3412323,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,12615973.99717999,176247135,1
+title t#movie_info_idx mi_idx,1044619.5032057035,115236,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,1105655.4391509087,107967029,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,4233049.808144152,221643494,1
+movie_companies mc,116.80525207519531,6578,0
+title t#cast_info ci#movie_info_idx mi_idx,7952933.861091879,9987615,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,415489.15480213624,11994034,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,18838483.687340185,198547592,1
+title t#movie_info mi#movie_keyword mk,18513111.825287145,215665402,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,48808076.78310129,43101,1
+title t#movie_info_idx mi_idx,694745.2877345213,457941,1
+movie_keyword mk,3470114.25,4200194,0
+title t#cast_info ci,30232592.022169948,35557191,1
+title t#cast_info ci#movie_keyword mk,97526.89008738947,763,1
+title t#movie_keyword mk,4347781.616197624,4133206,1
+title t#cast_info ci#movie_info_idx mi_idx,6567959.917385919,25389,1
+title t#movie_info mi,1754820.700579575,1390591,1
+title t#movie_companies mc#movie_info mi#movie_keyword mk,6852.370520783309,41093,1
+title t#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,7442835.703426802,43084960,1
+title t#movie_companies mc,13.759888657316484,732,1
+title t#movie_keyword mk,4238616.743011061,2654547,1
+movie_companies mc,2467856.75,1334235,0
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,15712561.052326191,133239079,1
+cast_info ci,9236815.0,8733547,0
+title t#movie_companies mc#movie_keyword mk,42731.15435492373,149,1
+title t#movie_info_idx mi_idx,718551.7522202132,434877,1
+title t#movie_info mi,6859598.504552503,673906,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,3434380.1384867704,24122961,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,24.643054231953382,2,1
+title t#movie_info mi,6123279.177249007,894207,1
+movie_companies mc,33.56747817993164,175,0
+title t#movie_info mi#movie_keyword mk,6014988.818928519,1212690,1
+title t#movie_companies mc,2132263.883534359,826053,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx,32.334630806254005,24741,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,22988268.23529334,6408556493,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,2955405.0527989035,106660748,1
+title t#movie_companies mc#movie_keyword mk,2569385.235000975,9017384,1
+title t#movie_info_idx mi_idx,167724.49208303855,120,1
+title t#cast_info ci#movie_info_idx mi_idx,15207019.420020489,10126674,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,36.89577910150469,42,1
+title t#movie_companies mc#movie_info mi#movie_keyword mk,11824325.39319252,42629976,1
+title t#movie_companies mc#cast_info ci#movie_info mi,144101148.59393653,1525624,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,549127.6377000037,177785378,1
+title t#movie_companies mc#movie_info mi,1783941.656463218,186,1
+title t#movie_companies mc#cast_info ci#movie_info mi,30011970.033333205,720261212,1
+cast_info ci,361966.8125,801615,0
+title t#cast_info ci#movie_info_idx mi_idx,10424057.7944143,493086,1
+movie_info mi,584021.3125,1401821,0
+title t,16742.73046875,16500,0
+title t#movie_info_idx mi_idx#movie_keyword mk,1088.3989762312533,1,1
+movie_info mi,599336.4375,486518,0
+title t#cast_info ci#movie_info mi,19735087.107025653,407871,1
+title t#movie_companies mc#cast_info ci,11396203.001113847,26709998,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,6463365.424953156,5320204,1
+title t#movie_info mi#movie_info_idx mi_idx,2548605.0076567666,1754106,1
+title t#movie_companies mc#cast_info ci#movie_info mi,7629132.563126942,212988018,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,9598961.818579745,13813085,1
+title t#movie_companies mc,1812955.77878003,781051,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,7920629.547708843,2422701261,1
+title t#movie_info mi#movie_info_idx mi_idx,4811963.279551959,6867114,1
+title t#movie_info mi,2478139.5072088707,1785937,1
+movie_info_idx mi_idx,1124.7218017578125,260,0
+title t#movie_companies mc#movie_keyword mk,5031624.769839347,23413335,1
+movie_info mi,599870.5,1298969,0
+title t#movie_info mi#movie_keyword mk,20324745.976445418,1279723,1
+title t#movie_info mi#movie_keyword mk,21122543.171311606,129270102,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,22.83491890289358,41434,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,15366270.813648783,1646084906,1
+title t#movie_info mi,2376990.9732950428,365120,1
+cast_info ci,6107212.0,5628447,0
+title t#movie_info mi,6007290.023808658,2008435,1
+title t#movie_companies mc#movie_keyword mk,4137390.151230342,34594192,1
+title t#movie_info mi#movie_keyword mk,2565267.3152679624,319701,1
+movie_companies mc,48.950904846191406,29,0
+movie_companies mc,1771389.375,1269832,0
+title t#movie_info_idx mi_idx,525299.2346666218,458201,1
+title t#movie_info mi#movie_info_idx mi_idx,3766392.518103618,244386,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,899334.9279658824,10776063,1
+movie_keyword mk,3446053.0,3957660,0
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,17504822.71117089,29362348,1
+title t#movie_info mi,7037594.994700959,2524534,1
+movie_companies mc,881970.375,875590,0
+movie_keyword mk,780.8616333007812,992,0
+title t#movie_info_idx mi_idx,737728.7759893247,248651,1
+movie_info mi,7297764.5,8646803,0
+title t#movie_info_idx mi_idx#movie_keyword mk,3736978.6814963836,101884,1
+cast_info ci,38.64524459838867,127,0
+title t#movie_info mi#movie_info_idx mi_idx,2992961.162822705,6526551,1
+title t#movie_info mi,2114105.3408580227,133906,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2818375.7500099833,159051,1
+title t,2090649.125,1740845,0
+cast_info ci,329660.34375,387155,0
+title t#cast_info ci,14.443217070536543,8,1
+title t#movie_info mi#movie_keyword mk,13078088.408079153,37846346,1
+movie_info_idx mi_idx,1352013.5,459925,0
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx,5913004.766300256,101814621,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx,4013619.201596485,21298924,1
+title t#movie_companies mc#cast_info ci#movie_info mi,3403560.470686996,39566097,1
+cast_info ci,47.65943908691406,13,0
+movie_keyword mk,375.6531066894531,243,0
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,3539669.5075687026,2977567411,1
+title t#movie_keyword mk,405266.1036799076,1359,1
+title t,2237730.25,2037317,0
+title t#movie_companies mc,1308662.9813938886,33614,1
+title t#movie_info mi,5202848.972518478,594286,1
+title t#movie_companies mc,2106262.9821074246,75316,1
+title t#movie_info mi,9548254.220800344,9266938,1
+title t#movie_info_idx mi_idx,717887.364874154,108993,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,8432222.752790516,2217719190,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,62504875.14883876,7876668,1
+title t,309751.9375,287531,0
+title t#movie_info_idx mi_idx,167918.45701666892,260,1
+title t#cast_info ci,24302766.414287407,29935275,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,1643356.1898385657,1070537,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,511494.89128532045,3355462,1
+title t#movie_companies mc,5.692101958809358,1201,1
+title t#movie_info mi,2714570.0851106215,1393728,1
+title t#movie_companies mc#movie_info mi,3122148.272358477,931727,1
+title t#cast_info ci,15563888.695013199,23081504,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,140463.7782242888,4880,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,16702103.576845642,40270432,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,30.43029515386172,48,1
+title t#cast_info ci#movie_keyword mk,17689576.915245872,2244631,1
+title t#movie_keyword mk,3863745.557826197,6725,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,10479958.671630286,38207325,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,6970373.059582345,6991103,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,34428846.4399343,3959599,1
+title t#movie_companies mc#movie_info mi#movie_keyword mk,16474479.30633151,3124501266,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,27267997.340890575,5613589617,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,86683053.88393725,71034396653,1
+cast_info ci,33036000.0,12639643,0
+title t#movie_info mi#movie_keyword mk,22104169.848243378,74862,1
+title t#movie_info mi,2715149.8982602307,1093050,1
+title t#movie_info mi#movie_info_idx mi_idx,5700598.517906304,557966,1
+movie_info mi,11375159.0,9530143,0
+title t#movie_companies mc#cast_info ci,39591.041170564466,47190,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,29449707.96157274,39212341,1
+title t#movie_info mi#movie_info_idx mi_idx,3130717.9967878233,830400,1
+movie_keyword mk,727.8327026367188,1423,0
+title t,807470.375,654428,0
+movie_info mi,715221.5625,903768,0
+cast_info ci,31899076.0,35263047,0
+title t#cast_info ci#movie_keyword mk,64094869.155643344,1324830,1
+movie_info mi,6191595.5,3501003,0
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5142909.966407245,2549922,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,6558827.388049514,142178,1
+title t#cast_info ci#movie_info mi,78717234.91695967,5824119,1
+title t#movie_info mi#movie_keyword mk,13417729.548745537,16815934,1
+title t#movie_companies mc#movie_info_idx mi_idx,32879.76978161868,40908,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,3087947.3457009587,81760832,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,57812353.634236656,6625588808,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5523012.392409779,4279629396,1
+title t#movie_companies mc,2130310.7014041413,1527633,1
+title t#cast_info ci#movie_info mi,138996848.33853143,86780381,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,3169428.6934440127,19121516,1
+title t#movie_info mi,2622826.825146782,1310250,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,731291.2722921427,749720339,1
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,5226525.680956512,754859104,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,700596.4329859739,443523,1
+title t#movie_companies mc#movie_info mi,8328263.325336726,3963260,1
+movie_keyword mk,1305778.125,1235356,0
+title t#movie_info mi#movie_keyword mk,19779500.02520958,616972,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,113235133.17565426,71125657117,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,1000386.5738975652,233863,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,340579.0087886226,57,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,53883436.85232904,15502715921,1
+title t#movie_keyword mk,583380.090188372,843,1
+movie_companies mc,91846.7265625,223811,0
+title t#cast_info ci#movie_keyword mk,64748498.29324697,53273153,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5475899.53848574,4383190969,1
+title t#cast_info ci#movie_info_idx mi_idx,15122429.855143761,1741586,1
+title t#movie_keyword mk,4448535.181518506,1316036,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,26652064.753143497,65264,1
+title t#movie_info mi#movie_keyword mk,13141301.394696053,11877395,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,22539104.41187347,156339126,1
+title t#movie_companies mc#cast_info ci,1818833.437790888,1117531,1
+movie_companies mc,99.6402587890625,356,0
+title t#movie_companies mc,1515408.31667052,1306143,1
+title t#movie_companies mc#movie_info mi#movie_keyword mk,42390438.26421756,3630395,1
+title t#movie_info_idx mi_idx,883795.8252742587,198,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,49704654.01057094,541778817,1
+movie_companies mc,858048.1875,758165,0
+title t#movie_keyword mk,4079854.635706771,4277,1
+title t#movie_keyword mk,4286797.024906686,377201,1
+title t#movie_companies mc#cast_info ci#movie_info mi,116815708.1243842,5263033415,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,246.5763314333087,2969920,1
+title t#movie_info mi,9548973.353061855,3535127,1
+title t,291728.0,265776,0
+title t#movie_companies mc#movie_info mi,2033714.603172898,892363,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,17737009.067339405,87948028,1
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,680.4105256626171,2394,1
+movie_keyword mk,859.21533203125,10799,0
+movie_keyword mk,1875587.0,1750725,0
+movie_keyword mk,162.90020751953125,107,0
+title t#movie_companies mc#movie_info mi#movie_keyword mk,20692393.28661151,14271359,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,10999023.292695276,43344,1
+title t#cast_info ci#movie_keyword mk,57677095.17112561,212774290,1
+title t#movie_companies mc#movie_info_idx mi_idx,422660.9117992679,2078848,1
+movie_info mi,6073594.0,1967094,0
+movie_keyword mk,2029560.375,1934752,0
+title t,1.3647840023040771,1,0
+title t#cast_info ci,32.154277587223696,1,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx,436679.0270207196,1657320,1
+title t#movie_info_idx mi_idx,1031486.7874397293,10153,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2142469.7535649827,3926553,1
+title t,5155.15478515625,6217,0
+movie_keyword mk,6.136498928070068,29,0
+title t#movie_companies mc#movie_keyword mk,405951.5706583274,176,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,63.57641366379614,2619,1
+title t#movie_keyword mk,4445405.395156278,1182962,1
+title t#cast_info ci,30233974.09214946,17242083,1
+movie_info mi,11122510.0,9043625,0
+movie_info mi,11610670.0,10829112,0
+title t#movie_companies mc#movie_keyword mk,5889823.6187371565,807427,1
+title t#movie_companies mc#movie_info_idx mi_idx,561018.2323758758,67183,1
+title t#movie_companies mc#cast_info ci#movie_keyword mk,4020.5802979100613,1086,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2029868.1202035828,10388110,1
+title t#movie_companies mc#movie_keyword mk,2849667.569173345,866,1
+title t#cast_info ci#movie_info_idx mi_idx,13798180.343010033,40528374,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,5977630.030068302,4415934,1
+title t#cast_info ci,9265816.210871862,5482273,1
+title t#movie_companies mc#movie_keyword mk,25.996873811606275,99596,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,1470311.4530065805,2309564278,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,1796176.3492235073,57687637,1
+title t#movie_info mi#movie_info_idx mi_idx,4356427.518445918,19663256,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,142710287.28818625,1142625022,1
+movie_keyword mk,525376.875,621177,0
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,9426452.209242,335743930,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,47.29036029435701,567,1
+title t#movie_companies mc#movie_info mi#movie_info_idx mi_idx,5891019.775935067,250260,1
+title t#cast_info ci#movie_info_idx mi_idx,919188.1059585265,11495,1
+movie_keyword mk,1653183.625,1589417,0
+title t#movie_companies mc#cast_info ci#movie_info mi#movie_info_idx mi_idx,17.403680758050292,6,1
+movie_keyword mk,606.660888671875,1351,0
+title t#movie_info_idx mi_idx,1033365.4007703542,50826,1
+title t#movie_companies mc#movie_info_idx mi_idx#movie_keyword mk,251719.18118172462,849371,1
+movie_keyword mk,2112462.75,1989480,0
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,899086.0409763528,187224556,1
+movie_info mi,5956534.5,678183,0
+title t#movie_companies mc#cast_info ci#movie_info_idx mi_idx#movie_keyword mk,12110144.835155603,3881591458,1
+title t#movie_info mi,6602683.50336813,4241745,1
+title t#cast_info ci#movie_info_idx mi_idx,7304658.280888176,5849472,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,26482208.7270733,1132985,1
+title t#movie_companies mc#cast_info ci,1810507.3970313903,625299,1
+title t#movie_keyword mk,4342170.900373937,4293819,1
+title t#movie_companies mc,3.5771786654252904,4,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,9906121.791853346,980097,1
+title t#movie_companies mc,2130414.280432419,1760628,1
+title t,9046.1201171875,8907,0
+title t#movie_info mi,6134097.726894615,5808333,1
+title t#cast_info ci#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,111236830.88945994,2349665004,1
+title t#movie_info_idx mi_idx,718623.6895852106,62377,1
+title t#movie_keyword mk,4455455.963210403,1337782,1
+movie_keyword mk,160.68521118164062,337,0
+title t#movie_info_idx mi_idx,167764.64206666168,260,1
+title t,1694076.875,1545133,0
+title t#movie_info mi#movie_info_idx mi_idx,4184296.051094253,6190268,1
+title t#cast_info ci,11651679.352337442,9207948,1
+title t#movie_info_idx mi_idx#movie_keyword mk,2541214.5970370127,881562,1
+movie_keyword mk,785.6444702148438,1034,0
+title t#movie_companies mc#cast_info ci,28124218.95189142,79185418,1
+movie_keyword mk,3024183.0,2924334,0
+title t#movie_keyword mk,4397328.78604579,107324,1
+title t#cast_info ci#movie_info mi#movie_keyword mk,351290138.512842,1358559825,1
+title t,2388.10498046875,296,0
+title t#movie_companies mc#movie_info mi,9414470.19966501,20899978,1
+title t#movie_info mi#movie_info_idx mi_idx#movie_keyword mk,12838792.197657736,44694,1

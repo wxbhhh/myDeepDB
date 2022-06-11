@@ -1,4 +1,5 @@
 import argparse
+import pickle
 import time
 import os
 
@@ -72,21 +73,17 @@ def print_qerror(preds_unnorm, labels_unnorm):
     print("Mean: {}".format(np.mean(qerror)))
 
 
-# train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
-def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_units, cuda):
+def model_train(num_queries, num_epochs, batch_size, hid_units, cuda):
     """
-    workload_name:训练集
-    num_queries:查询数量
-    num_epochs:迭代次数
-    batch_size:每批数量
-    hid_units:隐藏层单元数量
-    cuda:是否启用cuda
+        num_queries:查询数量
+        num_epochs:迭代次数
+        batch_size:每批数量
+        hid_units:隐藏层单元数量
+        cuda:是否启用cuda
     """
-    # 设置预测用的样本数量
+    # Load training and validation data
     num_materialized_samples = 1000
     # num_materialized_samples = 0
-
-    # 从文本文件中加载训练集和验证集
     dicts, \
     column_min_max_vals, \
     min_val, \
@@ -100,8 +97,9 @@ def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_un
         = get_train_datasets(num_queries, num_materialized_samples)
     table2vec, column2vec, op2vec, join2vec = dicts
 
-    # 神经网络模型基本设置(输入层单元数，隐藏层数，输出层单元数设置)
-    sample_feats = len(table2vec) + num_materialized_samples
+    # Train model
+    # sample_feats = len(table2vec) + num_materialized_samples
+    sample_feats = len(table2vec)
     predicate_feats = len(column2vec) + len(op2vec) + 1
     join_feats = len(join2vec)
 
@@ -112,11 +110,9 @@ def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_un
     if cuda:
         model.cuda()
 
-    # 训练集和测试集归一化处理
     train_data_loader = DataLoader(train_data, batch_size=batch_size)
     test_data_loader = DataLoader(test_data, batch_size=batch_size)
 
-    # 开始训练模型
     model.train()
     for epoch in range(num_epochs):
         loss_total = 0.
@@ -142,21 +138,21 @@ def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_un
 
         print("Epoch {}, loss: {}".format(epoch, loss_total / len(train_data_loader)))
 
-    # 得到最后的模型并验证误差
+    # Get final training and validation set predictions
     preds_train, t_total = predict(model, train_data_loader, cuda)
     print("Prediction time per training sample: {}".format(t_total / len(labels_train) * 1000))
 
     preds_test, t_total = predict(model, test_data_loader, cuda)
     print("Prediction time per validation sample: {}".format(t_total / len(labels_test) * 1000))
 
-    # 从模型输出获得最后的预测基数值
+    # Unnormalize
     preds_train_unnorm = unnormalize_labels(preds_train, min_val, max_val)
     labels_train_unnorm = unnormalize_labels(labels_train, min_val, max_val)
 
     preds_test_unnorm = unnormalize_labels(preds_test, min_val, max_val)
     labels_test_unnorm = unnormalize_labels(labels_test, min_val, max_val)
 
-    # 计算并打印误差
+    # Print metrics
     print("\nQ-Error training set:")
     print_qerror(preds_train_unnorm, labels_train_unnorm)
 
@@ -164,9 +160,114 @@ def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_un
     print_qerror(preds_test_unnorm, labels_test_unnorm)
     print("")
 
+    # save model
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    nn_saved_path = './model_saved/model_%s.nn' % timeStamp
+    nn_file = open(nn_saved_path, "wb")
+    pickle.dump(model, nn_file)
+    nn_file.close()
+
+# train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
+def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_units, cuda):
+    """
+    workload_name:训练集
+    num_queries:查询数量
+    num_epochs:迭代次数
+    batch_size:每批数量
+    hid_units:隐藏层单元数量
+    cuda:是否启用cuda
+    """
+    # Load training and validation data
+    num_materialized_samples = 1000
+    # num_materialized_samples = 0
+    dicts, \
+    column_min_max_vals, \
+    min_val, \
+    max_val, \
+    labels_train, \
+    labels_test, \
+    max_num_joins, \
+    max_num_predicates, \
+    train_data, \
+    test_data \
+        = get_train_datasets(num_queries, num_materialized_samples)
+    table2vec, column2vec, op2vec, join2vec = dicts
+
+    # Train model
+    # sample_feats = len(table2vec) + num_materialized_samples
+    sample_feats = len(table2vec)
+    predicate_feats = len(column2vec) + len(op2vec) + 1
+    join_feats = len(join2vec)
+
+    model = SetConv(sample_feats, predicate_feats, join_feats, hid_units)
+
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+
+    if cuda:
+        model.cuda()
+
+    train_data_loader = DataLoader(train_data, batch_size=batch_size)
+    test_data_loader = DataLoader(test_data, batch_size=batch_size)
+
+    model.train()
+    for epoch in range(num_epochs):
+        loss_total = 0.
+
+        for batch_idx, data_batch in enumerate(train_data_loader):
+
+            samples, predicates, joins, targets, sample_masks, predicate_masks, join_masks = data_batch
+
+            if cuda:
+                samples, predicates, joins, targets = samples.cuda(), predicates.cuda(), joins.cuda(), targets.cuda()
+                sample_masks, predicate_masks, join_masks = sample_masks.cuda(), predicate_masks.cuda(), join_masks.cuda()
+            samples, predicates, joins, targets = Variable(samples), Variable(predicates), Variable(joins), Variable(
+                targets)
+            sample_masks, predicate_masks, join_masks = Variable(sample_masks), Variable(predicate_masks), Variable(
+                join_masks)
+
+            optimizer.zero_grad()
+            outputs = model(samples, predicates, joins, sample_masks, predicate_masks, join_masks)
+            loss = qerror_loss(outputs, targets.float(), min_val, max_val)
+            loss_total += loss.item()
+            loss.backward()
+            optimizer.step()
+
+        print("Epoch {}, loss: {}".format(epoch, loss_total / len(train_data_loader)))
+
+    # Get final training and validation set predictions
+    preds_train, t_total = predict(model, train_data_loader, cuda)
+    print("Prediction time per training sample: {}".format(t_total / len(labels_train) * 1000))
+
+    preds_test, t_total = predict(model, test_data_loader, cuda)
+    print("Prediction time per validation sample: {}".format(t_total / len(labels_test) * 1000))
+
+    # Unnormalize
+    preds_train_unnorm = unnormalize_labels(preds_train, min_val, max_val)
+    labels_train_unnorm = unnormalize_labels(labels_train, min_val, max_val)
+
+    preds_test_unnorm = unnormalize_labels(preds_test, min_val, max_val)
+    labels_test_unnorm = unnormalize_labels(labels_test, min_val, max_val)
+
+    # Print metrics
+    print("\nQ-Error training set:")
+    print_qerror(preds_train_unnorm, labels_train_unnorm)
+
+    print("\nQ-Error validation set:")
+    print_qerror(preds_test_unnorm, labels_test_unnorm)
+    print("")
+
+    # save model
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    nn_saved_path = './model_saved/model_%s.nn' % timeStamp
+    nn_file = open(nn_saved_path, "wb")
+    pickle.dump(model, nn_file)
+    nn_file.close()
+
+
+
     # Load test data
     file_name = "workloads/" + workload_name
-    joins, predicates, tables, samples, label = load_data(file_name, num_materialized_samples)
+    joins, predicates, tables, samples, label = load_data(file_name, num_materialized_samples, is_train=False)
 
     # Get feature encoding and proper normalization
     samples_test = encode_samples(tables, samples, table2vec)
@@ -192,30 +293,37 @@ def train_and_predict(workload_name, num_queries, num_epochs, batch_size, hid_un
     print("\nQ-Error " + workload_name + ":")
     print_qerror(preds_test_unnorm, label)
 
-    # 将预测结果保存至文件
-    file_name = "results/predictions_" + workload_name + "_" + str(int(time.time())) + "_o.csv"
+    # Write predictions
+    file_name = "results/predictions_" + workload_name + "_" + str(int(time.time())) + "_m.csv"
     os.makedirs(os.path.dirname(file_name), exist_ok=True)
     with open(file_name, "w") as f:
         for i in range(len(preds_test_unnorm)):
             f.write(str(preds_test_unnorm[i]) + "," + label[i] + "\n")
 
 
+def predict_file(test_file_name, model):
+    pass
+
+
+# 使用保存好的模型预测
+def predict_with_exist_nn(test_file_name, nn_file_name):
+    # Load
+    nn_file_path = './models_saved/' + nn_file_name
+    nn_file = open(nn_file_path, 'rb')
+    model = pickle.load(nn_file)
+    predict_file(test_file_name, model)
+    nn_file.close()
+
+
 def main():
     parser = argparse.ArgumentParser()
-    # 指定训练集
     parser.add_argument("testset", help="synthetic, scale, or job-light")
-    # 设置训练用的查询样本数量
-    parser.add_argument("--queries", help="number of training queries (default: 10000)", type=int, default=10000)
-    # 设置迭代次数
-    parser.add_argument("--epochs", help="number of epochs (default: 10)", type=int, default=10)
-    # 每个小批量的数量
+    parser.add_argument("--queries", help="number of training queries (default: 10000)", type=int, default=100000)
+    parser.add_argument("--epochs", help="number of epochs (default: 10)", type=int, default=100)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=1024)
-    # 隐藏层单元数量
     parser.add_argument("--hid", help="number of hidden units (default: 256)", type=int, default=256)
-    # 是否用显卡训练
     parser.add_argument("--cuda", help="use CUDA", action="store_true")
     args = parser.parse_args()
-    # 开始和训练网络
     train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
 
 

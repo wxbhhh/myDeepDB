@@ -1,4 +1,5 @@
 import csv
+import random
 
 from torch.utils.data import dataset
 from myCE.mymscn.myutil import *
@@ -69,6 +70,10 @@ def load_model_data(file_name, num_materialized_samples):
     # Load queries
     with open(file_name, 'rU') as f:
         data_raw = list(list(rec) for rec in csv.reader(f, delimiter='#'))
+
+        # 打乱序列
+        random.shuffle(data_raw)
+
         for row in data_raw:
             tables.append(row[0].split(','))
             joins.append(row[1].split(','))
@@ -76,53 +81,36 @@ def load_model_data(file_name, num_materialized_samples):
             row_label = row[3].split(',')
 
             # 基数和dnv为0时的特别处理，后续需重新考虑处理流程
-            for i, v in enumerate(row_label):
-                if float(v) <= 0:
-                    row_label[i] = 1
+            # for i, v in enumerate(row_label):
+            #     if float(v) <= 0:
+            #         row_label[i] = 1
 
             label.append(row_label)
     # Split predicates
     predicates = [list(chunks(d, 3)) for d in predicates]
     print("Loaded queries")
 
-    # Load bitmaps
-    # num_bytes_per_bitmap = int((num_materialized_samples + 7) >> 3)
-    # with open(file_name + ".bitmaps", 'rb') as f:
-    #     for i in range(len(tables)):
-    #         four_bytes = f.read(4)
-    #         if not four_bytes:
-    #             print("Error while reading 'four_bytes'")
-    #             exit(1)
-    #         num_bitmaps_curr_query = int.from_bytes(four_bytes, byteorder='little')
-    #         bitmaps = np.empty((num_bitmaps_curr_query, num_bytes_per_bitmap * 8), dtype=np.uint8)
-    #         for j in range(num_bitmaps_curr_query):
-    #             # Read bitmap
-    #             bitmap_bytes = f.read(num_bytes_per_bitmap)
-    #             if not bitmap_bytes:
-    #                 print("Error while reading 'bitmap_bytes'")
-    #                 exit(1)
-    #             bitmaps[j] = np.unpackbits(np.frombuffer(bitmap_bytes, dtype=np.uint8))
-    #         samples.append(bitmaps)
-    # print("Loaded bitmaps")
-
     return joins, predicates, tables, samples, label
 
 
 # 根据模型的数据文件加载和编码模型数据
-def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries_percent, num_materialized_samples):
-
+def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries_percent, num_materialized_samples, model_max_card):
     joins, predicates, tables, samples, label = load_model_data(train_data_file, num_materialized_samples)
+
+    column_dict = list(model_column_dnv_vals.keys())
 
     # Get column name dict
     column_names = get_all_column_names(predicates)
-    column2vec, idx2column = get_set_encoding(column_names)
+    #column2vec, idx2column = get_set_encoding(column_names)
+    column2vec, idx2column = get_set_encoding(column_dict)
 
     # Get table name dict
     table_names = get_all_table_names(tables)
     table2vec, idx2table = get_set_encoding(table_names)
 
     # Get operator name dict
-    operators = get_all_operators(predicates)
+    # operators = get_all_operators(predicates)
+    operators = ['>', '>=', '<', '<=', '=']
     op2vec, idx2op = get_set_encoding(operators)
 
     # Get join name dict
@@ -133,9 +121,8 @@ def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_mi
     samples_enc = encode_samples(tables, samples, table2vec)
 
     predicates_enc, joins_enc = encode_data(predicates, joins, column_min_max_dnv_vals, column2vec, op2vec, join2vec)
-
-    label_norm, card_max_val, card_min_val = normalize_labels(label, model_column_dnv_vals)
-
+    model_column_dnv_list = [model_column_dnv_vals[key] for key in model_column_dnv_vals]
+    label_norm = normalize_labels(label, model_max_card, model_column_dnv_list)
 
     num_queries = len(label_norm)
     # Split in training and validation samples
@@ -161,21 +148,20 @@ def load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_mi
     dicts = [table2vec, column2vec, op2vec, join2vec]
     train_data = [samples_train, predicates_train, joins_train]
     test_data = [samples_test, predicates_test, joins_test]
-    return dicts, card_max_val, card_min_val, labels_train, labels_test, max_num_joins, max_num_predicates, train_data, test_data
+    return dicts, labels_train, labels_test, max_num_joins, max_num_predicates, train_data, test_data
 
 
 # 根据模型文件名对数据进行相关处理
-def get_model_datasets(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries, num_materialized_samples):
+def get_model_datasets(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries, num_materialized_samples, model_max_card):
 
     dicts, \
-    min_val, max_val, \
     labels_train, \
     labels_test, \
     max_num_joins, \
     max_num_predicates, \
     train_data, \
     test_data = \
-        load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries, num_materialized_samples)
+        load_and_encode_model_data(train_data_file, model_column_dnv_vals, column_min_max_dnv_vals, num_queries, num_materialized_samples, model_max_card)
 
     train_dataset = make_model_dataset(*train_data, labels=labels_train, max_num_joins=max_num_joins,
                                  max_num_predicates=max_num_predicates)
@@ -185,4 +171,4 @@ def get_model_datasets(train_data_file, model_column_dnv_vals, column_min_max_dn
                                 max_num_predicates=max_num_predicates)
     print("Created TensorDataset for validation data")
 
-    return dicts, min_val, max_val, labels_train, labels_test, max_num_joins, max_num_predicates, train_dataset, test_dataset
+    return dicts, labels_train, labels_test, max_num_joins, max_num_predicates, train_dataset, test_dataset

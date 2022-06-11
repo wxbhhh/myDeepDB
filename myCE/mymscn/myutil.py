@@ -92,15 +92,10 @@ def normalize_data(val, column_name, column_min_max_vals):
     return np.array(val_norm, dtype=np.float32)
 
 
-def normalize_labels(labels, model_dnv_vals):
+def normalize_labels(labels, model_max_card, model_dnv_vals):
     card_labels = np.array([np.log(float(l[0])) for l in labels])
-
-    model_card_min_val = card_labels.min()
-    model_card_max_val = card_labels.max()
-
-    card_labels_norm = (card_labels - model_card_min_val) / (model_card_max_val - model_card_min_val)
-    card_labels_norm = np.minimum(card_labels_norm, 1)
-    card_labels_norm = np.maximum(card_labels_norm, 0)
+    model_max_card_log = np.log(float(model_max_card))
+    card_labels_norm = card_labels / model_max_card_log
 
     dnv_labels = []
     for l in labels:
@@ -112,23 +107,37 @@ def normalize_labels(labels, model_dnv_vals):
         dnv_labels.append(dnv_l)
     dnv_labels_norm = np.array(dnv_labels)
     labels_norm = np.column_stack((card_labels_norm, dnv_labels_norm))
-    return labels_norm, model_card_max_val, model_card_min_val
+    return labels_norm
 
 
-def unnormalize_labels(labels_norm, min_val, max_val, model_dnv_vals):
+def unnormalize_labels(labels_norm, model_max_card, model_dnv_vals):
     card_norm = labels_norm[:, 0:1]
     dnv_norm = labels_norm[0:, 1:]
 
     # card_norm = np.array(card_norm, dtype=np.float32)
-    cards = (card_norm * (max_val - min_val)) + min_val
+    cards = card_norm*torch.log(torch.tensor(float(model_max_card)))
     cards = torch.exp(cards)
 
     dnvs = dnv_norm*torch.log(torch.tensor(model_dnv_vals))
     dnvs = torch.exp(dnvs)
 
-    result = torch.cat([cards, dnvs],dim=1)
+    result = torch.cat([cards, dnvs], dim=1)
     return result
 
+
+def unnormalize_row_outputs(labels_norm, model_max_card, model_dnv_vals):
+    card_norm = labels_norm[0:1]
+    dnv_norm = labels_norm[1:]
+
+    # card_norm = np.array(card_norm, dtype=np.float32)
+    cards = card_norm * torch.log(torch.tensor(float(model_max_card)))
+    cards = torch.exp(cards)
+
+    dnvs = dnv_norm * torch.log(torch.tensor(model_dnv_vals))
+    dnvs = torch.exp(dnvs)
+
+    result = torch.cat([cards, dnvs], dim=0)
+    return result
 
 def encode_samples(tables, samples, table2vec):
     samples_enc = []
@@ -175,3 +184,83 @@ def encode_data(predicates, joins, column_min_max_vals, column2vec, op2vec, join
             join_vec = join2vec[predicate]
             joins_enc[i].append(join_vec)
     return predicates_enc, joins_enc
+
+
+def encode_row_samples(tables_str, samples, table2vec):
+    query = tables_str.split(',')
+    samples_enc = []
+    for j, table in enumerate(query):
+        sample_vec = table2vec[table]
+        # Append bit vector
+        # 暂时关闭
+        # sample_vec.append(samples[i][j])
+        sample_vec = np.hstack(sample_vec)
+        samples_enc.append(sample_vec)
+
+    sample_tensor = np.vstack(samples_enc)
+    sample_tensor = torch.FloatTensor(sample_tensor)
+
+    sample_mask = np.ones_like(sample_tensor).mean(1, keepdims=True)
+    sample_mask = np.vstack(sample_mask)
+    sample_mask = torch.FloatTensor(sample_mask)
+
+    return sample_tensor, sample_mask
+
+
+def encode_row_data(predicates_str, joins_str, column_min_max_vals, column2vec, op2vec, join2vec):
+    predicates = []
+
+    # 谓词部分为空时补上默认谓词
+    if predicates_str is '':
+        for column_name in column2vec:
+            if column_name.endswith('.id'):
+                predicates_str = '%s,<=,%s' % (column_name, column_min_max_vals[column_name]['max'])
+                break
+
+    predicates_arr = predicates_str.split(',')
+    for i in range(len(predicates_arr)//3):
+        column = predicates_arr[i*3]
+        operator = predicates_arr[i*3+1]
+        val = predicates_arr[i*3+2]
+        predicates.append([column, operator, val])
+
+    predicates_enc = []
+    for predicate in predicates:
+        pred_vec = []
+        if len(predicate) == 3:
+            # Proper predicate
+            column = predicate[0]
+            operator = predicate[1]
+            val = predicate[2]
+            norm_val = normalize_data(val, column, column_min_max_vals)
+
+            pred_vec.append(column2vec[column])
+            pred_vec.append(op2vec[operator])
+            pred_vec.append(norm_val)
+            pred_vec = np.hstack(pred_vec)
+        else:
+            pred_vec = np.zeros((len(column2vec) + len(op2vec) + 1))
+
+        predicates_enc.append(pred_vec)
+
+    predicates_tensor = np.vstack(predicates_enc)
+    predicates_tensor = torch.FloatTensor(predicates_tensor)
+
+    predicates_mask = np.ones_like(predicates_tensor).mean(1, keepdims=True)
+    predicates_mask = np.vstack(predicates_mask)
+    predicates_mask = torch.FloatTensor(predicates_mask)
+
+    joins = joins_str.split(',')
+    joins_enc = []
+    for join in joins:
+        # Join instruction
+        join_vec = join2vec[join]
+        joins_enc.append(join_vec)
+    joins_tensor = np.vstack(joins_enc)
+    joins_tensor = torch.FloatTensor(joins_tensor)
+
+    joins_mask = np.ones_like(joins_tensor).mean(1, keepdims=True)
+    joins_mask = np.vstack(joins_mask)
+    joins_mask = torch.FloatTensor(joins_mask)
+
+    return predicates_tensor, predicates_mask, joins_tensor, joins_mask
