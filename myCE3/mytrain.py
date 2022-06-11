@@ -1,18 +1,17 @@
 import argparse
 import copy
-import csv
 import pickle
 import queue
-import random
 import time
 import os
 
-import torch
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
 
+import matplotlib.pyplot as plt
+
 from mymscn.myDB import get_model_info, get_models_dnv_vals, get_db_column_min_max_dnv_vals
-from mymscn.myparser import split_sqlArr_to_access_sqlJsons, sqlJson_to_sqlArr
+from mymscn.myparser import split_sqlArr_to_access_sqlJsons, sqlJson_to_sqlArr, sqlArr_to_sql
 from mymscn.myutil import *
 from mymscn.mydata import get_model_datasets, load_model_data
 from mymscn.mynn import my_nn
@@ -63,6 +62,7 @@ def validate_nn(n_network, validate_data_loader, card_max, column_dnv):
         total_num += len(samples)
         qerror += loss.item()*len(samples)
     return qerror / total_num
+
 
 def predict(n_network, data_loader, cuda):
     preds = []
@@ -120,9 +120,15 @@ global_model_dnv_vals = get_models_dnv_vals()
 
 
 # 构建和训练神经网络模型
-def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_hid_units, lr, cuda):
-
-    modelDataPath = './data/model_train_data'
+def model_construct_and_train(
+        num_queries_percent,
+        num_epochs,
+        batch_size,
+        base_hid_units,
+        lr,
+        cuda,
+        modelDataPath='./data/model_train_data'
+):
     modelFiles = os.listdir(modelDataPath)  # 采用listdir来读取所有文件
     modelFiles.sort()  # 排序
 
@@ -211,6 +217,8 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_
 
         print("-----------------------------------------------------model: %s construct end" % model_name)
 
+
+    # train models
     for model_name in models.keys():
 
         print("+++++++++++++++++++++++++++++++++++++++++++++++++++++++ model: %s train start" % model_name)
@@ -233,7 +241,17 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_
 
         column_dnv = model['model_data']['model_column_dnv']
         n_network.train()
+
+        lr_list = []
         for epoch in range(num_epochs):
+
+            if epoch > 0 and epoch % 20 == 0:  # 每迭代20次，更新一次学习率
+                for params in n_network_opt.param_groups:  # 遍历Optimizer中的每一组参数
+                    pass
+                    # params['lr'] *= 0.9  # 将该组参数的学习率 * 0.9
+                    # params['weight_decay'] = 0.5  # 当然也可以修改其他属性
+            lr_list.append(n_network_opt.state_dict()['param_groups'][0]['lr'])
+
             loss_total = 0.
             for batch_idx, data_batch in enumerate(train_data_loader):
 
@@ -260,6 +278,8 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_
 
             print("Epoch {}, train_loss: {}, valid_loss: {}".format(epoch, loss_total / len(train_data_loader), validate_loss))
 
+        # plt.plot(range(num_epochs), lr_list, color='r')
+        # plt.show()
 
         print("\nfinal training and validation set predictions")
         preds_train, t_total = predict(n_network, train_data_loader, cuda)
@@ -289,9 +309,13 @@ def model_construct_and_train(num_queries_percent, num_epochs, batch_size, base_
 
     # Save models
     timeStamp = time.strftime("%Y%m%d%H%M%S")
-    models_file = open('./models_saved/models_%s.nn' % timeStamp, "wb")
-    pickle.dump(models, models_file)
-    models_file.close()
+    nn_saved_dir = './models_saved/models_%s' % timeStamp
+    os.makedirs(nn_saved_dir)
+    for model_name in models.keys():
+        model = models[model_name]
+        model_file = open(nn_saved_dir + '/' + model_name + '.nn', "wb")
+        pickle.dump(model, model_file)
+        model_file.close()
 
     return models
 
@@ -330,7 +354,111 @@ def predict_access_sqlArr(sqlArr_str, tar_model):
     return card, properties_dnv
 
 
-def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda):
+# 预测文件中的sql的基数
+def predict_file(test_file_name, models):
+    tables_model_map = {}
+    for key in global_modelConfigInfo:
+        tables_model_map[','.join(global_modelConfigInfo[key]['table'])] = key
+    predict_result = []
+
+    # Load test data
+    file_name = "data/model_test_data/" + test_file_name + ".csv"
+    with open(file_name, 'r') as f:
+        for row_str in f:
+            row = row_str.strip().split('#')
+            print('预测：______________________________________')
+            print(row)
+            model_tables_str = row[0]
+            true_card = row[3].split(',')[0]
+            # 已存在模型与sql对应，直接输出基数
+            if model_tables_str in tables_model_map.keys() and tables_model_map[model_tables_str] in models.keys():
+                print('直接估计：')
+                model_name = tables_model_map[model_tables_str]
+                tar_model = models[model_name]
+                card, _ = predict_access_sqlArr(row_str, tar_model)
+                print('估计结果：%s,%s,%s,0' % (model_tables_str.replace(',', '#'), card, true_card))
+                predict_result.append('%s,%s,%s,0' % (model_tables_str.replace(',', '#'), card, true_card))
+            # 不存在模型与sql对应，进行拆分，间接估计基数
+            else:
+                print('间接估计：')
+                access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
+                # print(access_sqlJsons)
+                origin_sql = sqlArr_to_sql(row_str)
+                print('origin: ' + origin_sql)
+                ele_queue = queue.Queue()
+                for key in access_sqlJsons:
+                    access_sqlJson = access_sqlJsons[key]
+                    access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
+                    access_sql = sqlArr_to_sql(access_sqlArr)
+                    print(str(key) + ': ' + access_sql)
+                    access_sqlArr_tables_str = access_sqlArr.split('#')[0]
+                    model_name = tables_model_map[access_sqlArr_tables_str]
+                    tar_model = models[model_name]
+                    card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
+                    print(card)
+                    print(column_dnv)
+
+                    connect_keys = {}
+                    joins = access_sqlJson['exports']
+                    for join_str in joins:
+                        join_columns = join_str.split('=')
+                        left_column = join_columns[0]
+                        right_column = join_columns[1]
+                        if left_column in column_dnv.keys():
+                            connect_keys[join_str] = column_dnv[left_column]
+                        else:
+                            connect_keys[join_str] = column_dnv[right_column]
+
+                    element = {
+                        'card': card,
+                        'joins': joins,
+                        'connect_keys': connect_keys
+                    }
+                    ele_queue.put(element)
+                # print(ele_queue)
+                first_ele = ele_queue.get()
+                while not ele_queue.empty():
+                    tmp_ele = ele_queue.get()
+                    if first_ele['joins'].isdisjoint(tmp_ele['joins']):
+                        ele_queue.put(tmp_ele)
+                        continue
+                    else:
+                        intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
+                        intersection_join_str = intersection_joins.pop()
+                        new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
+
+                        first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
+                        tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
+
+                        new_connect_keys = dict()
+                        new_connect_keys.update(first_ele['connect_keys'])
+                        new_connect_keys.update(tmp_ele['connect_keys'])
+
+                        first_card = first_ele['card']
+                        tmp_card = tmp_ele['card']
+                        new_card = (first_card * tmp_card) / max(first_dnv, tmp_dnv)
+
+                        first_ele = {
+                            'card': new_card,
+                            'joins': new_joins,
+                            'connect_keys': new_connect_keys
+                        }
+                print('估计结果：%s,%s,%s,1' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
+                predict_result.append('%s,%s,%s,1' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
+            print('-------------------------------------------\n')
+    # Print metrics
+    print("\nQ-Error " + test_file_name + ":")
+    # Write predictions
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    file_name = "results/predictions_" + test_file_name + "_" + timeStamp + ".csv"
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    with open(file_name, "w") as f:
+        for card_result in predict_result:
+            f.write("%s\n" % card_result)
+
+
+# 训练模型并且预测文件中sql的基数
+def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_dir):
     """
     workload_name:训练集
     num_queries:查询数量
@@ -340,212 +468,66 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
     cuda:是否启用cuda
     """
 
-    tables_model_map = {}
-    for key in global_modelConfigInfo:
-        tables_model_map[','.join(global_modelConfigInfo[key]['table'])] = key
-
-    models = model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda)
-
-    predict_result = []
-
-    # Load test data
-    file_name = "data/model_test_data/" + test_file_name + ".csv"
-    with open(file_name, 'r') as f:
-        for row_str in f:
-            row = row_str.strip().split('#')
-            print(row)
-            model_tables_str = row[0]
-            true_card = row[3].split(',')[0]
-            # 已存在模型与sql对应，直接输出基数
-            if model_tables_str in tables_model_map.keys() and tables_model_map[model_tables_str] in models.keys():
-                model_name = tables_model_map[model_tables_str]
-                tar_model = models[model_name]
-                card, _ = predict_access_sqlArr(row_str, tar_model)
-                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), card, true_card))
-            # 不存在模型与sql对应，进行拆分，间接估计基数
-            else:
-                access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
-                # print(access_sqlJsons)
-                ele_queue = queue.Queue()
-                for key in access_sqlJsons:
-                    access_sqlJson = access_sqlJsons[key]
-                    access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
-                    access_sqlArr_tables_str = access_sqlArr.split('#')[0]
-                    model_name = tables_model_map[access_sqlArr_tables_str]
-                    tar_model = models[model_name]
-                    card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
-
-                    connect_keys = {}
-                    joins = access_sqlJson['exports']
-                    for join_str in joins:
-                        join_columns = join_str.split('=')
-                        left_column = join_columns[0]
-                        right_column = join_columns[1]
-                        if left_column in column_dnv.keys():
-                            connect_keys[join_str] = column_dnv[left_column]
-                        else:
-                            connect_keys[join_str] = column_dnv[right_column]
-
-                    element = {
-                        'card': card,
-                        'joins': joins,
-                        'connect_keys': connect_keys
-                    }
-                    ele_queue.put(element)
-                # print(ele_queue)
-                first_ele = ele_queue.get()
-                while not ele_queue.empty():
-                    tmp_ele = ele_queue.get()
-                    if first_ele['joins'].isdisjoint(tmp_ele['joins']):
-                        ele_queue.put(tmp_ele)
-                        continue
-                    else:
-                        intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
-                        intersection_join_str = intersection_joins.pop()
-                        new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
-
-                        first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
-                        tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
-
-                        new_connect_keys = dict()
-                        new_connect_keys.update(first_ele['connect_keys'])
-                        new_connect_keys.update(tmp_ele['connect_keys'])
+    train_data_path = './data/' + train_data_dir
+    models = model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_path)
+    predict_file(test_file_name, models)
 
 
-                        first_card = first_ele['card']
-                        tmp_card = tmp_ele['card']
-                        new_card = (first_card*tmp_card) / max(first_dnv, tmp_dnv)
-
-                        first_ele = {
-                            'card': new_card,
-                            'joins': new_joins,
-                            'connect_keys': new_connect_keys
-                        }
-                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
-
-    # Print metrics
-    print("\nQ-Error " + test_file_name + ":")
-    # Write predictions
-    timeStamp = time.strftime("%Y%m%d%H%M%S")
-    file_name = "results/predictions_" + test_file_name + "_" + timeStamp + ".csv"
-    os.makedirs(os.path.dirname(file_name), exist_ok=True)
-    with open(file_name, "w") as f:
-        for card_result in predict_result:
-            f.write("%s\n" % card_result)
-
-
-def predict_with_exist_nn(test_file_name, nn_file_name):
+# 使用保存好的模型预测
+def predict_with_exist_nn(test_file_name, nn_dir_name):
     # Load
-    models_file = open('./models_saved/' + nn_file_name, "rb")
-    models = pickle.load(models_file)
-    models_file.close()
+    models_path = './models_saved/' + nn_dir_name
+    modelFiles = os.listdir(models_path)
+    models = dict()
+    for model_file_name in modelFiles:
+        model_file_path = models_path + '/' + model_file_name
+        model_file = open(model_file_path, 'rb')
+        model_name = model_file_name.split('.')[0]
+        model = pickle.load(model_file)
+        models[model_name] = model
+        model_file.close()
 
-    tables_model_map = {}
-    for key in global_modelConfigInfo:
-        tables_model_map[','.join(global_modelConfigInfo[key]['table'])] = key
-    predict_result = []
-
-    # Load test data
-    file_name = "data/model_test_data/" + test_file_name + ".csv"
-    with open(file_name, 'r') as f:
-        for row_str in f:
-            row = row_str.strip().split('#')
-            print(row)
-            model_tables_str = row[0]
-            true_card = row[3].split(',')[0]
-            if model_tables_str in tables_model_map.keys() and tables_model_map[model_tables_str] in models.keys():
-                model_name = tables_model_map[model_tables_str]
-                tar_model = models[model_name]
-                card, _ = predict_access_sqlArr(row_str, tar_model)
-                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), card, true_card))
-            else:
-                access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
-                # print(access_sqlJsons)
-                ele_queue = queue.Queue()
-                for key in access_sqlJsons:
-                    access_sqlJson = access_sqlJsons[key]
-                    access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
-                    access_sqlArr_tables_str = access_sqlArr.split('#')[0]
-                    model_name = tables_model_map[access_sqlArr_tables_str]
-                    tar_model = models[model_name]
-                    card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
-
-                    connect_keys = {}
-                    joins = access_sqlJson['exports']
-                    for join_str in joins:
-                        join_columns = join_str.split('=')
-                        left_column = join_columns[0]
-                        right_column = join_columns[1]
-                        if left_column in column_dnv.keys():
-                            connect_keys[join_str] = column_dnv[left_column]
-                        else:
-                            connect_keys[join_str] = column_dnv[right_column]
-
-                    element = {
-                        'card': card,
-                        'joins': joins,
-                        'connect_keys': connect_keys
-                    }
-                    ele_queue.put(element)
-                # print(ele_queue)
-                first_ele = ele_queue.get()
-                while not ele_queue.empty():
-                    tmp_ele = ele_queue.get()
-                    if first_ele['joins'].isdisjoint(tmp_ele['joins']):
-                        ele_queue.put(tmp_ele)
-                        continue
-                    else:
-                        intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
-                        intersection_join_str = intersection_joins.pop()
-                        new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
-
-                        first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
-                        tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
-
-                        new_connect_keys = dict()
-                        new_connect_keys.update(first_ele['connect_keys'])
-                        new_connect_keys.update(tmp_ele['connect_keys'])
-
-
-                        first_card = first_ele['card']
-                        tmp_card = tmp_ele['card']
-                        new_card = (first_card*tmp_card) / max(first_dnv, tmp_dnv)
-
-                        first_ele = {
-                            'card': new_card,
-                            'joins': new_joins,
-                            'connect_keys': new_connect_keys
-                        }
-                predict_result.append('%s,%s,%s' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
-
-    # Print metrics
-    print("\nQ-Error " + test_file_name + ":")
-    # Write predictions
-    timeStamp = time.strftime("%Y%m%d%H%M%S")
-    file_name = "results/predictions_" + test_file_name + "_" + timeStamp + ".csv"
-    os.makedirs(os.path.dirname(file_name), exist_ok=True)
-    with open(file_name, "w") as f:
-        for card_result in predict_result:
-            f.write("%s\n" % card_result)
+    predict_file(test_file_name, models)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='test15')
-    parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.95)
-    parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=5)
+    parser.add_argument("--trainset", help="train data dir", type=str, default='model_test_data')
+    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='scale')
+    parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.9)
+    parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=200)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=100)
-    parser.add_argument("--hid", help="base number of hidden units (default: 256)", type=int, default=120)
+    parser.add_argument("--hid", help="base number of hidden units (default: 256)", type=int, default=160)
     parser.add_argument("--cuda", help="use CUDA", action="store_true", default=False)
-    parser.add_argument("--lr", help="learn rate",  type=float, default=0.0005)
+    parser.add_argument("--lr", help="learn rate",  type=float, default=0.001)
     args = parser.parse_args()
 
-    train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.lr, args.cuda)
+    args.queries = 0.9
+    args.epochs = 500
+    args.batch = 100
+    args.hid = 160
+    args.lr = 0.0015
+    args.cuda = False
+    args.trainset = 'true_csv'
 
-    # test_file_name = args.testset
-    # nn_file_name = 'models_20220511163449.nn'
-    # predict_with_exist_nn(test_file_name, nn_file_name)
+    # train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.lr, args.cuda, args.trainset)
 
+
+
+    # args.trainset = './data/true_csv'
+    # model_construct_and_train(
+    #     args.queries,
+    #     args.epochs,
+    #     args.batch,
+    #     args.hid,
+    #     args.lr,
+    #     args.cuda,
+    #     args.trainset
+    # )
+
+    test_file_name = 'scale'
+    nn_file_name = 'model__0-5'
+    predict_with_exist_nn(test_file_name, nn_file_name)
 
 if __name__ == "__main__":
     main()

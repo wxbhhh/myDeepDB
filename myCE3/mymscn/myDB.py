@@ -2,26 +2,10 @@
 import csv
 import os.path
 
-
-# 获取每个模型的相关信息
-# def get_model_info():
-#     modelConfigInfo = {}
-#
-#     current_path = os.path.dirname(__file__)
-#     modelConfigPath = '{}/../config/model_config.csv'.format(current_path)
-#     with open(modelConfigPath, 'r') as modelConfigFile:
-#         for row in modelConfigFile:
-#             lineArr = row.split(',')
-#             modelName = lineArr[1]
-#             modelIndex = lineArr[0]
-#             modelTables = lineArr[2].split('#')
-#             modelProperties = lineArr[3].strip().split('#')
-#             model = {'index': modelIndex, 'table': modelTables, 'properties': modelProperties}
-#             modelConfigInfo[modelName] = model
-#     return modelConfigInfo
 # 获取每个模型的相关信息
 def get_model_info():
-    access_model = ['model_0', 'model_1', 'model_15', 'model_9']
+    access_model = ['model_9']
+    access_model = ['model_0', 'model_1', 'model_2', 'model_3', 'model_4', 'model_5']
 
     modelConfigInfo = {}
 
@@ -32,8 +16,8 @@ def get_model_info():
             lineArr = row.strip().split(',')
             modelName = lineArr[1]
             if modelName not in access_model:
-                pass
-                # continue
+                # pass
+                continue
             modelIndex = lineArr[0]
             modelTables = lineArr[2].split('#')
             modelProperties = lineArr[3].strip().split('#')

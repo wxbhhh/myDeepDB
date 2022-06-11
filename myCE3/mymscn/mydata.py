@@ -81,34 +81,14 @@ def load_model_data(file_name, num_materialized_samples):
             row_label = row[3].split(',')
 
             # 基数和dnv为0时的特别处理，后续需重新考虑处理流程
-            for i, v in enumerate(row_label):
-                if float(v) <= 0:
-                    row_label[i] = 1
+            # for i, v in enumerate(row_label):
+            #     if float(v) <= 0:
+            #         row_label[i] = 1
 
             label.append(row_label)
     # Split predicates
     predicates = [list(chunks(d, 3)) for d in predicates]
     print("Loaded queries")
-
-    # Load bitmaps
-    # num_bytes_per_bitmap = int((num_materialized_samples + 7) >> 3)
-    # with open(file_name + ".bitmaps", 'rb') as f:
-    #     for i in range(len(tables)):
-    #         four_bytes = f.read(4)
-    #         if not four_bytes:
-    #             print("Error while reading 'four_bytes'")
-    #             exit(1)
-    #         num_bitmaps_curr_query = int.from_bytes(four_bytes, byteorder='little')
-    #         bitmaps = np.empty((num_bitmaps_curr_query, num_bytes_per_bitmap * 8), dtype=np.uint8)
-    #         for j in range(num_bitmaps_curr_query):
-    #             # Read bitmap
-    #             bitmap_bytes = f.read(num_bytes_per_bitmap)
-    #             if not bitmap_bytes:
-    #                 print("Error while reading 'bitmap_bytes'")
-    #                 exit(1)
-    #             bitmaps[j] = np.unpackbits(np.frombuffer(bitmap_bytes, dtype=np.uint8))
-    #         samples.append(bitmaps)
-    # print("Loaded bitmaps")
 
     return joins, predicates, tables, samples, label
 

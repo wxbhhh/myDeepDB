@@ -1,6 +1,7 @@
 # 读取模型的相关配置
 import copy
 import os
+import queue
 
 from myCE3.mymscn.myDB import get_model_info, get_db_column_min_max_dnv_vals
 
@@ -34,8 +35,13 @@ global_tableset_list, global_tablestr_list = get_tableset_tablestr_list()
 
 
 def get_tablestr_of_tableset(tableset):
-    index = global_tableset_list.index(tableset)
-    return global_tablestr_list[index]
+    try:
+        index = global_tableset_list.index(tableset)
+        return global_tablestr_list[index]
+    except:
+        tablelist = list(tableset)
+        tablelist.sort()
+        return ','.join(tablelist)
 
 
 # 将分割好的sql转化成特殊的json格式，例如：
@@ -83,7 +89,7 @@ def get_tablestr_of_tableset(tableset):
     """
 
 
-# 将分割好的sql转化成特殊的json格式，规则如上
+# 将分割好的sql转化成特殊的json格式，规则如上，每张表拆成一条sqlJson
 def split_sqlArr_to_sqlJsons(sqlArr):
     sqlJsons = {}
 
@@ -204,6 +210,7 @@ def split_sqlArr_to_sqlJsons_by_policy(sqlArr, table_subsets_turple):
             'exports': set(),
             'exports_properties': set()
         }
+    print('组合策略:')
     print(alias_index)
 
     sql_strs = sqlArr.split('#')
@@ -408,7 +415,12 @@ def get_all_sets_and_policy():
     base_subsets_index = {}
     index = 0
     for model_name in model_info.keys():
+
         model = model_info[model_name]
+
+        if int(model['valid']) < 1:
+            continue
+
         subset = set(model['table'])
         base_subsets_list.append(subset)
         base_subsets_index[index] = [(index,)]
@@ -481,11 +493,15 @@ def test1():
     #test_sql_and_json(test_sql1)
     #test_sql_and_json(test_sql2)
 
-    test_sql3 = 'title t,movie_companies mc,cast_info ci#t.id=mc.movie_id,t.id=ci.movie_id#mc.company_id,=,27,t.id,>,1000000,mc.company_type_id,=,1,ci.person_id,<,1265390#96573'
-    test_sql_and_json(test_sql3)
+    # test_sql3 = 'title t,movie_companies mc,cast_info ci#t.id=mc.movie_id,t.id=ci.movie_id#mc.company_id,=,27,t.id,>,1000000,mc.company_type_id,=,1,ci.person_id,<,1265390#96573'
+    # test_sql_and_json(test_sql3)
+    #
+    # test_sql4 = 'cast_info ci,movie_companies mc#ci.movie_id=mc.movie_id#ci.person_id,>,50,ci.role_id,>,3,mc.company_id,>,11328,mc.company_type_id,=,2#20'
+    # test_sql_and_json(test_sql4)
 
-    test_sql4 = 'cast_info ci,movie_companies mc#ci.movie_id=mc.movie_id#ci.person_id,>,50,ci.role_id,>,3,mc.company_id,>,11328,mc.company_type_id,=,2#20'
-    test_sql_and_json(test_sql4)
+    test_sql5 = 'title t,movie_companies mc,cast_info ci,movie_info mi,movie_info_idx mi_idx#t.id=mc.movie_id,t.id=ci.movie_id,t.id=mi.movie_id,t.id=mi_idx.movie_id#t.kind_id,<,7,t.production_year,<,1999,mc.company_type_id,=,2,mi_idx.info_type_id,=,100#281934531'
+    test_sql_and_json(test_sql5)
+
 
 # 测试通过基本子集合列表生成所有子集合列表的合并策略
 def test2():
@@ -524,7 +540,8 @@ def test3():
     # print(base_subsets_list)
     all_sets_list, _, policy = get_all_policy(base_subsets_list, base_subsets_index)
 
-    sqlArr = 'movie_info mi,movie_companies mc,cast_info ci#mi.movie_id=mc.movie_id,mi.movie_id=ci.movie_id#mc.company_id,=,27,mi.movie_id,>,1000000,mc.company_type_id,=,1,ci.person_id,<,1265390#96573'
+    # sqlArr = 'movie_info mi,movie_companies mc,cast_info ci#mi.movie_id=mc.movie_id,mi.movie_id=ci.movie_id#mc.company_id,=,27,mi.movie_id,>,1000000,mc.company_type_id,=,1,ci.person_id,<,1265390#96573'
+    sqlArr = 'title t,movie_companies mc,cast_info ci,movie_info mi,movie_info_idx mi_idx#t.id=mc.movie_id,t.id=ci.movie_id,t.id=mi.movie_id,t.id=mi_idx.movie_id#t.kind_id,<,7,t.production_year,<,1999,mc.company_type_id,=,2,mi_idx.info_type_id,=,100#281934531'
     # test_sql_and_json(sqlArr)
 
 
@@ -538,33 +555,43 @@ def test3():
     for subset_index in tar_model_policy:
         table_subsets_turple = table_subsets_turple + (base_subsets_list[subset_index],)
     print(table_subsets_turple)
-    table_subsets_turple = ({'movie_companies mc'}, {'movie_info mi', 'cast_info ci'})
+    # table_subsets_turple = ({'movie_companies mc'}, {'movie_info mi', 'cast_info ci'})
     # sqlJsons = split_sqlArr_to_sqlJsons(sqlArr)
     sqlJsons = split_sqlArr_to_sqlJsons_by_policy(sqlArr, table_subsets_turple)
     print(sqlJsons)
 
+    print('原始sql:')
     print(sqlArr_to_sql(sqlArr))
 
-    result_json = {
-        'tables_alias': set(),
-        'tables': set(),
-        'predicates': set(),
-        'joins': set(),
-        'exports': set(),
-        'exports_properties': set()
-    }
-    for sqlJson_key in sqlJsons:
-        sqlJson = sqlJsons[sqlJson_key]
-        sqlArr = sqlJson_to_sqlArr(sqlJson)
-        sql = sqlArr_to_sql(sqlArr)
-        print(sql)
-        result_json = merge_sqlJsons(result_json, sqlJson)
-        result_sqlArr = sqlJson_to_sqlArr(result_json)
-        result_sql = sqlArr_to_sql(result_sqlArr)
-        print(result_sql)
+    sql_jsons_queue = queue.Queue()
+    for key in sqlJsons:
+        tmp_json = sqlJsons[key]
+        sql_jsons_queue.put(tmp_json)
+
+    result_json = sql_jsons_queue.get()
+
+    while not sql_jsons_queue.empty():
+        tmp_json = sql_jsons_queue.get()
+        if result_json['exports'].isdisjoint(tmp_json['exports']):
+            sql_jsons_queue.put(tmp_json)
+            continue
+        else:
+            print("准备合并的json:")
+            print(tmp_json)
+
+            print("json合并后：")
+            result_json = merge_sqlJsons(result_json, tmp_json)
+            print(result_json)
+            print("合并后的sqlArr:")
+            result_sqlArr = sqlJson_to_sqlArr(result_json)
+            print(result_sqlArr)
+            print("合并后的sql:")
+            result_sql = sqlArr_to_sql(result_sqlArr)
+            print(result_sql)
+
 
 
 if __name__ == "__main__":
     # test1()
-    test2()
-    # test3()
+    # test2()
+    test3()

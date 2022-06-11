@@ -4,6 +4,16 @@ import pymysql
 # pymysql.install_as_MySQLdb()
 
 
+
+tableNameAlias = {
+    'cast_info': 'ci',
+    'movie_companies': 'mc',
+    'movie_info': 'mi',
+    'movie_info_idx': 'mi_idx',
+    'movie_keyword': 'mk',
+    'title': 't'
+}
+
 # 查询
 def load():
 
@@ -41,7 +51,7 @@ def load():
             sql = 'SELECT min(%s), max(%s), count(%s), count(distinct(%s)) from %s' % \
                   (properties, properties, properties, properties, table_name)
             cursor.execute(sql)
-            tp = table_name + '.' + properties
+            tp = tableNameAlias[table_name] + '.' + properties
             info = ['%s' % row for row in cursor.fetchone()]
             print(tp)
             print(info)

@@ -173,7 +173,7 @@ def test_csv_convert(fileName='scale', outDir='./data_prepared/'):
 
 
 if __name__ == "__main__":
-    # train_csv_convert('./data_prepared/')
-    test_csv_convert('scale', './data_prepared/')
-    test_csv_convert('synthetic', './data_prepared/')
-    test_csv_convert('job-light', './data_prepared/')
+    train_csv_convert('./data_prepared/')
+    # test_csv_convert('scale', './data_prepared/')
+    # test_csv_convert('synthetic', './data_prepared/')
+    # test_csv_convert('job-light', './data_prepared/')

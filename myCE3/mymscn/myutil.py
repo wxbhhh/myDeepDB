@@ -209,6 +209,14 @@ def encode_row_samples(tables_str, samples, table2vec):
 
 def encode_row_data(predicates_str, joins_str, column_min_max_vals, column2vec, op2vec, join2vec):
     predicates = []
+
+    # 谓词部分为空时补上默认谓词
+    if predicates_str is '':
+        for column_name in column2vec:
+            if column_name.endswith('.id'):
+                predicates_str = '%s,<=,%s' % (column_name, column_min_max_vals[column_name]['max'])
+                break
+
     predicates_arr = predicates_str.split(',')
     for i in range(len(predicates_arr)//3):
         column = predicates_arr[i*3]
