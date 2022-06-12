@@ -387,7 +387,7 @@ def get_all_policy(base_subset_list, base_subsets_index):
                         if len(union_subsets) == 1 and len(union_subsets[0]) == 1:
                             continue
                         else:
-                            if(i, k) not in union_subsets:
+                            if (i, k) not in union_subsets and i < union_subsets_index and k < union_subsets_index:
                                 subsets_index[union_subsets_index].append((i, k))
 
         # print(new_sets_list)
@@ -397,14 +397,36 @@ def get_all_policy(base_subset_list, base_subsets_index):
     for i in subsets_index:
         for k, model_policy_tuple in enumerate(subsets_index[i]):
             if len(model_policy_tuple) == 1:
-                policy[i] = model_policy_tuple
+                policy[i] = [model_policy_tuple]
                 break
-            if k > 0:
-                continue
+
+            # if k > 0:
+            #     continue
+
             left_model_index = model_policy_tuple[0]
             right_model_index = model_policy_tuple[1]
-            policy[i] = policy[left_model_index] + policy[right_model_index]
-    # print(policy)
+            # new_policy = policy[left_model_index] + policy[right_model_index]
+
+
+            policy_left_set = policy[left_model_index]
+            policy_right_set = policy[right_model_index]
+            for policy_left in policy_left_set:
+                for policy_right in policy_right_set:
+                    new_policy = policy_left + policy_right
+                    new_policy = sorted(new_policy)
+                    new_policy = tuple(new_policy)
+                    if i not in policy:
+                        policy[i] = [new_policy]
+                    else:
+                        if new_policy not in policy[i]:
+                            current_policy = policy[i]
+                            current_policy_first = current_policy[0]
+                            if len(new_policy) < len(current_policy_first):
+                                policy[i] = [new_policy]
+                            if len(new_policy) == len(current_policy_first):
+                                policy[i].append(new_policy)
+                        # print(policy)
+
     # print(subsets_index)
     return new_sets_list, subsets_index, policy
 
@@ -436,13 +458,17 @@ global_all_sets_list, global_policy, global_base_subsets_list = get_all_sets_and
 def split_sqlArr_to_access_sqlJsons(sqlArr):
     tar_model_table_sets = set(sqlArr.split('#')[0].split(','))
     tar_model_index = global_all_sets_list.index(tar_model_table_sets)
-    tar_model_policy = global_policy[tar_model_index]
-    table_subsets_turple = ()
-    for subset_index in tar_model_policy:
-        table_subsets_turple = table_subsets_turple + (global_base_subsets_list[subset_index],)
-    sqlJsons = split_sqlArr_to_sqlJsons_by_policy(sqlArr, table_subsets_turple)
+    tar_model_policy_list = global_policy[tar_model_index]
 
-    return sqlJsons
+    sqlJsons_arr = []
+    for tar_model_policy in tar_model_policy_list:
+        table_subsets_turple = ()
+        for subset_index in tar_model_policy:
+            table_subsets_turple = table_subsets_turple + (global_base_subsets_list[subset_index],)
+        sqlJsons = split_sqlArr_to_sqlJsons_by_policy(sqlArr, table_subsets_turple)
+        sqlJsons_arr.append(sqlJsons)
+
+    return sqlJsons_arr
 
     # access_sqlArrs = []
     # for sqlJson_key in sqlJsons:
@@ -593,5 +619,5 @@ def test3():
 
 if __name__ == "__main__":
     # test1()
-    # test2()
-    test3()
+    test2()
+    # test3()

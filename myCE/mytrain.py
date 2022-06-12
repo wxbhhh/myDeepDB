@@ -144,7 +144,7 @@ def model_construct_and_train(
 
         i = i + 1
 
-        if i != 6:
+        if i != 10:
             continue
 
         is_valid = global_modelConfigInfo[modelFileNamePrefix]['valid']
@@ -247,8 +247,8 @@ def model_construct_and_train(
 
             if epoch > 0 and epoch % 20 == 0:  # 每迭代20次，更新一次学习率
                 for params in n_network_opt.param_groups:  # 遍历Optimizer中的每一组参数
-                    pass
-                    # params['lr'] *= 0.9  # 将该组参数的学习率 * 0.9
+                    # pass
+                    params['lr'] *= 0.9  # 将该组参数的学习率 * 0.9
                     # params['weight_decay'] = 0.5  # 当然也可以修改其他属性
             lr_list.append(n_network_opt.state_dict()['param_groups'][0]['lr'])
 
@@ -381,70 +381,75 @@ def predict_file(test_file_name, models):
             # 不存在模型与sql对应，进行拆分，间接估计基数
             else:
                 print('间接估计：')
-                access_sqlJsons = split_sqlArr_to_access_sqlJsons(row_str)
-                # print(access_sqlJsons)
-                origin_sql = sqlArr_to_sql(row_str)
-                print('origin: ' + origin_sql)
-                ele_queue = queue.Queue()
-                for key in access_sqlJsons:
-                    access_sqlJson = access_sqlJsons[key]
-                    access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
-                    access_sql = sqlArr_to_sql(access_sqlArr)
-                    print(str(key) + ': ' + access_sql)
-                    access_sqlArr_tables_str = access_sqlArr.split('#')[0]
-                    model_name = tables_model_map[access_sqlArr_tables_str]
-                    tar_model = models[model_name]
-                    card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
-                    print(card)
-                    print(column_dnv)
+                access_sqlJsons_arr = split_sqlArr_to_access_sqlJsons(row_str)
+                card_all = 0
+                for i, access_sqlJsons in enumerate(access_sqlJsons_arr):
+                    # print(access_sqlJsons)
+                    origin_sql = sqlArr_to_sql(row_str)
+                    print('origin: ' + origin_sql)
+                    ele_queue = queue.Queue()
+                    for key in access_sqlJsons:
+                        access_sqlJson = access_sqlJsons[key]
+                        access_sqlArr = sqlJson_to_sqlArr(access_sqlJson)
+                        access_sql = sqlArr_to_sql(access_sqlArr)
+                        print(str(key) + ': ' + access_sql)
+                        access_sqlArr_tables_str = access_sqlArr.split('#')[0]
+                        model_name = tables_model_map[access_sqlArr_tables_str]
+                        tar_model = models[model_name]
+                        card, column_dnv = predict_access_sqlArr(access_sqlArr, tar_model)
+                        print(card)
+                        print(column_dnv)
 
-                    connect_keys = {}
-                    joins = access_sqlJson['exports']
-                    for join_str in joins:
-                        join_columns = join_str.split('=')
-                        left_column = join_columns[0]
-                        right_column = join_columns[1]
-                        if left_column in column_dnv.keys():
-                            connect_keys[join_str] = column_dnv[left_column]
-                        else:
-                            connect_keys[join_str] = column_dnv[right_column]
+                        connect_keys = {}
+                        joins = access_sqlJson['exports']
+                        for join_str in joins:
+                            join_columns = join_str.split('=')
+                            left_column = join_columns[0]
+                            right_column = join_columns[1]
+                            if left_column in column_dnv.keys():
+                                connect_keys[join_str] = column_dnv[left_column]
+                            else:
+                                connect_keys[join_str] = column_dnv[right_column]
 
-                    element = {
-                        'card': card,
-                        'joins': joins,
-                        'connect_keys': connect_keys
-                    }
-                    ele_queue.put(element)
-                # print(ele_queue)
-                first_ele = ele_queue.get()
-                while not ele_queue.empty():
-                    tmp_ele = ele_queue.get()
-                    if first_ele['joins'].isdisjoint(tmp_ele['joins']):
-                        ele_queue.put(tmp_ele)
-                        continue
-                    else:
-                        intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
-                        intersection_join_str = intersection_joins.pop()
-                        new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
-
-                        first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
-                        tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
-
-                        new_connect_keys = dict()
-                        new_connect_keys.update(first_ele['connect_keys'])
-                        new_connect_keys.update(tmp_ele['connect_keys'])
-
-                        first_card = first_ele['card']
-                        tmp_card = tmp_ele['card']
-                        new_card = (first_card * tmp_card) / max(first_dnv, tmp_dnv)
-
-                        first_ele = {
-                            'card': new_card,
-                            'joins': new_joins,
-                            'connect_keys': new_connect_keys
+                        element = {
+                            'card': card,
+                            'joins': joins,
+                            'connect_keys': connect_keys
                         }
-                print('估计结果：%s,%s,%s,1' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
-                predict_result.append('%s,%s,%s,1' % (model_tables_str.replace(',', '#'), first_ele['card'], true_card))
+                        ele_queue.put(element)
+                    # print(ele_queue)
+                    first_ele = ele_queue.get()
+                    while not ele_queue.empty():
+                        tmp_ele = ele_queue.get()
+                        if first_ele['joins'].isdisjoint(tmp_ele['joins']):
+                            ele_queue.put(tmp_ele)
+                            continue
+                        else:
+                            intersection_joins = first_ele['joins'].intersection(tmp_ele['joins'])
+                            intersection_join_str = intersection_joins.pop()
+                            new_joins = first_ele['joins'].symmetric_difference(tmp_ele['joins'])
+
+                            first_dnv = first_ele['connect_keys'].pop(intersection_join_str)
+                            tmp_dnv = tmp_ele['connect_keys'].pop(intersection_join_str)
+
+                            new_connect_keys = dict()
+                            new_connect_keys.update(first_ele['connect_keys'])
+                            new_connect_keys.update(tmp_ele['connect_keys'])
+
+                            first_card = first_ele['card']
+                            tmp_card = tmp_ele['card']
+                            new_card = (first_card * tmp_card) / max(first_dnv, tmp_dnv)
+
+                            first_ele = {
+                                'card': new_card,
+                                'joins': new_joins,
+                                'connect_keys': new_connect_keys
+                            }
+                    print('策略(%s)估计结果：%s,%s,%s' % (i, model_tables_str.replace(',', '#'), first_ele['card'], true_card))
+                    card_all += first_ele['card']
+                mean_card = card_all/len(access_sqlJsons_arr)
+                print('最终估计结果：%s,%s,%s' % (model_tables_str.replace(',', '#'), mean_card, true_card))
+                predict_result.append('%s,%s,%s,1' % (model_tables_str.replace(',', '#'), mean_card, true_card))
             print('-------------------------------------------\n')
     # Print metrics
     print("\nQ-Error " + test_file_name + ":")
@@ -503,7 +508,7 @@ def main():
     args = parser.parse_args()
 
     args.queries = 0.9
-    args.epochs = 500
+    args.epochs = 5
     args.batch = 100
     args.hid = 160
     args.lr = 0.0015
@@ -523,7 +528,7 @@ def main():
     # )
 
     test_file_name = 'job-light'
-    nn_file_name = 'model__0-5'
+    nn_file_name = 'model__0-20'
     predict_with_exist_nn(test_file_name, nn_file_name)
 
 if __name__ == "__main__":

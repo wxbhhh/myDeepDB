@@ -105,7 +105,7 @@ def model_train(num_queries, num_epochs, batch_size, hid_units, cuda):
 
     nn = SetConv(sample_feats, predicate_feats, join_feats, hid_units)
 
-    optimizer = torch.optim.Adam(nn.parameters(), lr=0.001)
+    optimizer = torch.optim.Adam(nn.parameters(), lr=0.0005)
 
     if cuda:
         nn.cuda()
@@ -258,14 +258,14 @@ def predict_with_exist_nn(test_file_name, nn_file_name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("testset", help="synthetic, scale, or job-light")
-    parser.add_argument("--queries", help="number of training queries (default: 10000)", type=int, default=100000)
+    parser.add_argument("--queries", help="number of training queries (default: 10000), max 102122", type=int, default=100000)
     parser.add_argument("--epochs", help="number of epochs (default: 10)", type=int, default=100)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=1024)
     parser.add_argument("--hid", help="number of hidden units (default: 256)", type=int, default=256)
     parser.add_argument("--cuda", help="use CUDA", action="store_true")
     args = parser.parse_args()
-    # train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
-    predict_with_exist_nn(args.testset, 'model_1.nn')
+    train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.cuda)
+    # predict_with_exist_nn(args.testset, 'model_1.nn')
 
 
 if __name__ == "__main__":
