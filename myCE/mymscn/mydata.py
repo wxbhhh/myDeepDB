@@ -60,7 +60,7 @@ def make_model_dataset(samples, predicates, joins, labels, max_num_joins, max_nu
 
 
 # 根据模型数据的文件名加载模型数据
-def load_model_data(file_name, num_materialized_samples):
+def load_model_data(file_path, num_materialized_samples):
     joins = []
     predicates = []
     tables = []
@@ -68,7 +68,7 @@ def load_model_data(file_name, num_materialized_samples):
     label = []
 
     # Load queries
-    with open(file_name, 'rU') as f:
+    with open(file_path, 'rU') as f:
         data_raw = list(list(rec) for rec in csv.reader(f, delimiter='#'))
 
         # 打乱序列

@@ -278,11 +278,9 @@ def split_into_two():
 
 
 # 将sqlArr 和查询结果连接
-def dataConvertMain():
+def dataConvertMain(dataSqlPath, dataResultPath, outPath):
     timeStamp = time.strftime("%Y%m%d%H%M%S")
-    dataSqlPath = './model_sql'
-    dataResultPath = './model_result'
-    convertDataPath = './concat_data_%s' % timeStamp
+    convertDataPath = outPath + '/concat_data_%s' % timeStamp
     mkdir(convertDataPath)
 
     sqlFiles = os.listdir(dataSqlPath)  # 采用listdir来读取所有文件
@@ -299,10 +297,13 @@ def dataConvertMain():
 
                 concatResultLists = []
                 for i in range(len(resultLists)):
-                    sql = sqlLists[i].split('#')
-                    result = resultLists[i]
-                    concatResult = sql[0] + '#' + sql[1] + '#' + sql[2] + '#' + result
-                    concatResultLists.append(concatResult)
+                    sql = sqlLists[i].strip().split('#')
+                    result = resultLists[i].strip()
+                    card_dnv = result.split(',')
+                    card = card_dnv[0]
+                    if int(card) != 0:
+                        concatResult = sql[0] + '#' + sql[1] + '#' + sql[2] + '#' + result + '\n'
+                        concatResultLists.append(concatResult)
                 concatResultFilePath = convertDataPath + '/' + baseName + '.csv'
                 with open(concatResultFilePath, 'a') as concatResultFile:
                     concatResultFile.writelines(concatResultLists)
@@ -336,9 +337,11 @@ def dataFilter():
 
 
 if __name__ == "__main__":
-    csv_connect_data()
+    # csv_connect_data()
     # train_csv_convert('./data_prepared/')
     # test_csv_convert('scale', './data_prepared/')
     # test_csv_convert('synthetic', './data_prepared/')
     # test_csv_convert('job-light', './data_prepared/')
     # dataFilter()
+
+    dataConvertMain('./file/csv', './file/result', './out')

@@ -100,7 +100,7 @@ def queryDBByDirSync(sqlDirPath, sqlResultDirPath):
             queue.put((filePath, sqlResultOutDirPath))
            # queryDB(filePath, sqlResultOutDirPath)
 
-    max_thread = 5
+    max_thread = 2
     # 创建包括3个线程的线程池
     for i in range(max_thread):
         t = threading.Thread(target=syncWork, args=[queue])

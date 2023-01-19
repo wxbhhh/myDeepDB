@@ -1,0 +1,25 @@
+0,model_0,cast_info ci,ci.id#ci.person_id#ci.movie_id#ci.role_id,36121123,1
+1,model_1,movie_companies mc,mc.id#mc.movie_id#mc.company_id#mc.company_type_id,2604067,1
+2,model_2,movie_info mi,mi.id#mi.movie_id#mi.info_type_id,14330115,1
+3,model_3,movie_info_idx mi_idx,mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,1380035,1
+4,model_4,movie_keyword mk,mk.id#mk.movie_id#mk.keyword_id,4523930,1
+5,model_5,title t,t.id#t.kind_id#t.production_year,2445301,1
+6,model_6,title t#cast_info ci,t.id#t.kind_id#t.production_year#ci.id#ci.person_id#ci.movie_id#ci.role_id,88327018193023,0
+7,model_7,title t#cast_info ci#movie_info mi,t.id#t.kind_id#t.production_year#ci.id#ci.person_id#ci.movie_id#ci.role_id#mi.id#mi.movie_id#mi.info_type_id,1265736328313111787645,0
+8,model_8,title t#cast_info ci#movie_info_idx mi_idx,t.id#t.kind_id#t.production_year#ci.id#ci.person_id#ci.movie_id#ci.role_id#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,121894376552008495805,0
+9,model_9,title t#cast_info ci#movie_keyword mk,t.id#t.kind_id#t.production_year#ci.id#ci.person_id#ci.movie_id#ci.role_id#mk.id#mk.movie_id#mk.keyword_id,399585247413962540390,1
+10,model_10,title t#movie_companies mc,t.id#t.kind_id#t.production_year#mc.id#mc.movie_id#mc.company_id#mc.company_type_id,6367727639167,1
+11,model_11,title t#movie_companies mc#cast_info ci,t.id#t.kind_id#t.production_year#mc.id#mc.movie_id#mc.company_id#mc.company_type_id#ci.id#ci.person_id#ci.movie_id#ci.role_id,230009473284850824541,1
+12,model_12,title t#movie_companies mc#movie_info mi,t.id#t.kind_id#t.production_year#mc.id#mc.movie_id#mc.company_id#mc.company_type_id#mi.id#mi.movie_id#mi.info_type_id,91250269357941614205,1
+13,model_13,title t#movie_companies mc#movie_info_idx mi_idx,t.id#t.kind_id#t.production_year#mc.id#mc.movie_id#mc.company_id#mc.company_type_id#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,8787687012517830845,1
+14,model_14,title t#movie_companies mc#movie_keyword mk,t.id#t.kind_id#t.production_year#mc.id#mc.movie_id#mc.company_id#mc.company_type_id#mk.id#mk.movie_id#mk.keyword_id,28807154098656766310,1
+15,model_15,title t#movie_info mi,t.id#t.kind_id#t.production_year#mi.id#mi.movie_id#mi.info_type_id,35041444539615,1
+16,model_16,title t#movie_info mi#movie_info_idx mi_idx,t.id#t.kind_id#t.production_year#mi.id#mi.movie_id#mi.info_type_id#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,48358419915227586525,1
+17,model_17,title t#movie_info mi#movie_keyword mk,t.id#t.kind_id#t.production_year#mi.id#mi.movie_id#mi.info_type_id#mk.id#mk.movie_id#mk.keyword_id,158525042196100486950,1
+18,model_18,title t#movie_info_idx mi_idx,t.id#t.kind_id#t.production_year#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,3374600965535,1
+19,model_19,title t#movie_info_idx mi_idx#movie_keyword mk,t.id#t.kind_id#t.production_year#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id#mk.id#mk.movie_id#mk.keyword_id,15266458546012752550,1
+20,model_20,title t#movie_keyword mk,t.id#t.kind_id#t.production_year#mk.id#mk.movie_id#mk.keyword_id,11062370552930,1
+21,model_21,cast_info ci#movie_companies mc,ci.id#ci.person_id#ci.movie_id#ci.role_id#mc.id#mc.movie_id#mc.company_id#mc.company_type_id,94061824407241,1
+22,model_22,cast_info ci#movie_info mi,ci.id#ci.person_id#ci.movie_id#ci.role_id#mi.id#mi.movie_id#mi.info_type_id,517619846519145,1
+23,model_23,cast_info ci#movie_info_idx mi_idx,ci.id#ci.person_id#ci.movie_id#ci.role_id#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,49848413979305,1
+24,model_24,cast_info ci#movie_keyword mk,ci.id#ci.person_id#ci.movie_id#ci.role_id#mk.id#mk.movie_id#mk.keyword_id,163409431973390,1

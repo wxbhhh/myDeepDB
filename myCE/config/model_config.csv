@@ -19,3 +19,7 @@
 18,model_18,title t#movie_info_idx mi_idx,t.id#t.kind_id#t.production_year#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,3374600965535,1
 19,model_19,title t#movie_info_idx mi_idx#movie_keyword mk,t.id#t.kind_id#t.production_year#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id#mk.id#mk.movie_id#mk.keyword_id,15266458546012752550,1
 20,model_20,title t#movie_keyword mk,t.id#t.kind_id#t.production_year#mk.id#mk.movie_id#mk.keyword_id,11062370552930,1
+21,model_21,cast_info ci#movie_companies mc,ci.id#ci.person_id#ci.movie_id#ci.role_id#mc.id#mc.movie_id#mc.company_id#mc.company_type_id,94061824407241,1
+22,model_22,cast_info ci#movie_info mi,ci.id#ci.person_id#ci.movie_id#ci.role_id#mi.id#mi.movie_id#mi.info_type_id,517619846519145,1
+23,model_23,cast_info ci#movie_info_idx mi_idx,ci.id#ci.person_id#ci.movie_id#ci.role_id#mi_idx.id#mi_idx.movie_id#mi_idx.info_type_id,49848413979305,1
+24,model_24,cast_info ci#movie_keyword mk,ci.id#ci.person_id#ci.movie_id#ci.role_id#mk.id#mk.movie_id#mk.keyword_id,163409431973390,1

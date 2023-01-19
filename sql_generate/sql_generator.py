@@ -144,12 +144,13 @@ def sqlArr_to_sql(sqlArr):
     joinPredicates = rowInfo[1]
     basePredicates = rowInfo[2]
 
-    table_name = query.split(' ')[0]
-
     outStr = 'count(*)'
-    properties = table_properties[table_name]
-    for propertiesName in properties:
-        outStr += ', count(distinct(%s))' % propertiesName
+    tables_arr = query.split(',')
+    for table_str in tables_arr:
+        table_name = table_str.split(' ')[0]
+        properties = table_properties[table_name]
+        for propertiesName in properties:
+            outStr += ', count(distinct(%s))' % propertiesName
 
     queryStr = query
 
@@ -171,7 +172,7 @@ def sqlArr_to_sql(sqlArr):
     return sql
 
 
-# 根据直方图信息创建sql
+# 根据直方图信息创建sql(单表查询)
 def generate_sql():
     operator_list = ['>', '<', '=', '<=', '>=']
 
@@ -208,6 +209,74 @@ def generate_sql():
                 sql_file.write(sql + '\n')
 
 
+table_join_key = {
+    'cast_info': 'movie_id',
+    'movie_companies': 'movie_id',
+    'movie_info': 'movie_id',
+    'movie_info_idx': 'movie_id',
+    'movie_keyword': 'movie_id',
+    'title': 'id'
+}
+
+
+# 根据直方图信息创建sql(连接查询)
+def generate_join_sql():
+    operator_list = ['>', '<', '=', '<=', '>=']
+
+    timeStamp = time.strftime("%Y%m%d%H%M%S")
+    resultOutPath = './output/result_%s' % timeStamp
+    os.makedirs(resultOutPath)
+
+    list1 = sorted(list(table_join_key.keys()))
+    list2 = sorted(list(table_join_key.keys()))
+    for j, tableName1 in enumerate(list1):
+        for k, tableName2 in enumerate(list2):
+            if j >= k or j == 5 or k == 5:
+                continue
+            csv_file_name = resultOutPath + '/%s-%s.csv' % (tableName1, tableName2)
+            with open(csv_file_name, 'w') as csv_file:
+                sql_arr_set = set()
+                for i in range(10000):
+                    predicates = []
+
+                    table1_properties = table_properties[tableName1]
+                    table1_predicate_num = random.randint(1, len(table1_properties))
+                    predicate1_properties = random.sample(table1_properties, table1_predicate_num)
+                    for predicate_property in predicate1_properties:
+                        op = random.choice(operator_list)
+                        val = random.choice(column_histogram_info[predicate_property])
+                        predicate = '%s,%s,%s' % (predicate_property, op, val)
+                        predicates.append(predicate)
+
+                    table2_properties = table_properties[tableName2]
+                    table2_predicate_num = random.randint(1, len(table2_properties))
+                    predicate2_properties = random.sample(table2_properties, table2_predicate_num)
+                    for predicate_property in predicate2_properties:
+                        op = random.choice(operator_list)
+                        val = random.choice(column_histogram_info[predicate_property])
+                        predicate = '%s,%s,%s' % (predicate_property, op, val)
+                        predicates.append(predicate)
+
+                    table_str = tableName1 + ' ' + tableNameAlias[tableName1] + ',' + tableName2 + ' ' + tableNameAlias[tableName2]
+                    join_str = tableNameAlias[tableName1] + '.' + table_join_key[tableName1] + '=' + tableNameAlias[tableName2] + '.' + table_join_key[tableName2]
+                    predicate_str = ','.join(predicates)
+                    sql_arr = table_str + '#' + join_str + '#' + predicate_str
+                    print(sql_arr)
+                    sql_arr_set.add(sql_arr + '\n')
+
+                sql_arr_list = list(sql_arr_set)
+                list.sort(sql_arr_list)
+                csv_file.writelines(sql_arr_list)
+
+                sql_file_name = resultOutPath + '/%s-%s.sql' % (tableName1, tableName2)
+                with open(sql_file_name, 'w') as sql_file:
+                    for sql_arr in sql_arr_list:
+                        sql = sqlArr_to_sql(sql_arr)
+                        print(sql)
+                        sql_file.write(sql + '\n')
+
+
 if __name__ == "__main__":
     # create_histogram_config()
-    generate_sql()
+    # generate_sql()
+    generate_join_sql()

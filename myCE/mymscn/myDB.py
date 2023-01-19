@@ -6,6 +6,7 @@ import os.path
 def get_model_info():
     access_model = ['model_0', 'model_1', 'model_2', 'model_3', 'model_4', 'model_5', 'model_9', 'model_13', 'model_17', 'model_20']
     #access_model = ['model_0', 'model_1', 'model_2', 'model_3', 'model_4', 'model_5']
+    #access_model = ['model_21']
 
     modelConfigInfo = {}
 

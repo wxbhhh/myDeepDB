@@ -127,8 +127,9 @@ def model_construct_and_train(
         base_hid_units,
         lr,
         cuda,
-        modelDataPath='./data/model_train_data'
+        modelDataPath='model_train_data'
 ):
+    modelDataPath = os.path.abspath('./data') + '/' + modelDataPath
     modelFiles = os.listdir(modelDataPath)  # 采用listdir来读取所有文件
     modelFiles.sort()  # 排序
 
@@ -144,8 +145,8 @@ def model_construct_and_train(
 
         i = i + 1
 
-        if i != 10:
-            continue
+        # if i != 10:
+        #     continue
 
         is_valid = global_modelConfigInfo[modelFileNamePrefix]['valid']
         if is_valid < 1:
@@ -362,7 +363,7 @@ def predict_file(test_file_name, models):
     predict_result = []
 
     # Load test data
-    file_name = "data/model_test_data/" + test_file_name + ".csv"
+    file_name = os.path.abspath('./data/model_test_data') + '/' + test_file_name + '.csv'
     with open(file_name, 'r') as f:
         for row_str in f:
             row = row_str.strip().split('#')
@@ -463,7 +464,7 @@ def predict_file(test_file_name, models):
 
 
 # 训练模型并且预测文件中sql的基数
-def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_dir):
+def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_dir_name):
     """
     workload_name:训练集
     num_queries:查询数量
@@ -473,15 +474,15 @@ def train_and_predict(test_file_name, num_queries_percent, num_epochs, batch_siz
     cuda:是否启用cuda
     """
 
-    train_data_path = './data/' + train_data_dir
-    models = model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_path)
+    models = model_construct_and_train(num_queries_percent, num_epochs, batch_size, hid_units, lr, cuda, train_data_dir_name)
+
     predict_file(test_file_name, models)
 
 
 # 使用保存好的模型预测
 def predict_with_exist_nn(test_file_name, nn_dir_name):
     # Load
-    models_path = './models_saved/' + nn_dir_name
+    models_path = os.path.abspath('./models_saved') + '/' + nn_dir_name
     modelFiles = os.listdir(models_path)
     models = dict()
     for model_file_name in modelFiles:
@@ -497,8 +498,8 @@ def predict_with_exist_nn(test_file_name, nn_dir_name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--trainset", help="train data dir", type=str, default='data/model_train_data')
-    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='scale')
+    parser.add_argument("--trainset", help="train data dir", type=str, default='model_train_data')
+    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='model_21')
     parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.9)
     parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=200)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=100)
@@ -508,10 +509,10 @@ def main():
     args = parser.parse_args()
 
     args.queries = 0.9
-    args.epochs = 5
-    args.batch = 100
+    args.epochs = 700
+    args.batch = 80
     args.hid = 160
-    args.lr = 0.0015
+    args.lr = 0.003
     args.cuda = False
 
     # train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.lr, args.cuda, args.trainset)
@@ -527,8 +528,8 @@ def main():
     #     args.trainset
     # )
 
-    test_file_name = 'job-light'
-    nn_file_name = 'model__0-20'
+    test_file_name = 'single'
+    nn_file_name = 'model_0'
     predict_with_exist_nn(test_file_name, nn_file_name)
 
 if __name__ == "__main__":
