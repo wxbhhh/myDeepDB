@@ -140,13 +140,13 @@ def model_construct_and_train(
     # 循环读取每个文件名
     for modelFileNamePrefix in global_modelConfigInfo.keys():
     # for modelFileName in modelFiles:
-        # if i > 1:
-        #     break
+        # if i >= 1:
+        #   break
 
         i = i + 1
 
-        # if i != 10:
-        #     continue
+        if i != 1:
+            continue
 
         is_valid = global_modelConfigInfo[modelFileNamePrefix]['valid']
         if is_valid < 1:
@@ -244,6 +244,7 @@ def model_construct_and_train(
         n_network.train()
 
         lr_list = []
+        record_list = []
         for epoch in range(num_epochs):
 
             if epoch > 0 and epoch % 20 == 0:  # 每迭代20次，更新一次学习率
@@ -279,6 +280,7 @@ def model_construct_and_train(
 
             print("Epoch {}, train_loss: {}, valid_loss: {}".format(epoch, loss_total / len(train_data_loader), validate_loss))
 
+            record_list.append('%s,%s,%s,1' % (epoch, loss_total / len(train_data_loader), validate_loss))
         # plt.plot(range(num_epochs), lr_list, color='r')
         # plt.show()
 
@@ -307,6 +309,13 @@ def model_construct_and_train(
         print("\nQ-Error validation set:")
         print_qerror(preds_test_unnorm, labels_test_unnorm)
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++ model: %s train end" % model_name)
+
+        # save model training log
+        log_file_name = "train_log/log_" + time.strftime("%Y%m%d%H%M%S") + "/" + model_name + ".csv"
+        os.makedirs(os.path.dirname(log_file_name), exist_ok=True)
+        with open(log_file_name, "w") as f:
+            for loss_record in record_list:
+                f.write("%s\n" % loss_record)
 
     # Save models
     timeStamp = time.strftime("%Y%m%d%H%M%S")
@@ -499,7 +508,7 @@ def predict_with_exist_nn(test_file_name, nn_dir_name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--trainset", help="train data dir", type=str, default='model_train_data')
-    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='model_21')
+    parser.add_argument("--testset", help="synthetic, scale, or job-light", type=str, default='model_0')
     parser.add_argument("--queries", help="percent of training queries (default: 0.9)", type=float, default=0.9)
     parser.add_argument("--epochs", help="number of epochs (default: 100)", type=int, default=200)
     parser.add_argument("--batch", help="batch size (default: 1024)", type=int, default=100)
@@ -509,28 +518,28 @@ def main():
     args = parser.parse_args()
 
     args.queries = 0.9
-    args.epochs = 700
+    args.epochs = 100
     args.batch = 80
-    args.hid = 160
+    args.hid = 80
     args.lr = 0.003
     args.cuda = False
 
     # train_and_predict(args.testset, args.queries, args.epochs, args.batch, args.hid, args.lr, args.cuda, args.trainset)
 
 
-    # model_construct_and_train(
-    #     args.queries,
-    #     args.epochs,
-    #     args.batch,
-    #     args.hid,
-    #     args.lr,
-    #     args.cuda,
-    #     args.trainset
-    # )
+    model_construct_and_train(
+        args.queries,
+        args.epochs,
+        args.batch,
+        args.hid,
+        args.lr,
+        args.cuda,
+        args.trainset
+    )
 
-    test_file_name = 'single'
-    nn_file_name = 'model_0'
-    predict_with_exist_nn(test_file_name, nn_file_name)
+    # test_file_name = 'single'
+    # nn_file_name = 'model_0'
+    # predict_with_exist_nn(test_file_name, nn_file_name)
 
 if __name__ == "__main__":
     main()

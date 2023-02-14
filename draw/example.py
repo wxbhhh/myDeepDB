@@ -124,5 +124,92 @@ def load3():
     plt.show()  # 显示图片
 
 
+# 双y轴
+def load4():
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    x = np.arange(0., np.e, 0.01)
+    y1 = np.exp(-x)
+    y2 = np.log(x)
+
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111)
+    ax1.plot(x, y1, 'r', label="right");
+    ax1.legend(loc=1)
+    ax1.set_ylabel('Y values for exp(-x)');
+    ax2 = ax1.twinx()  # this is the important function
+    ax2.plot(x, y2, 'g', label="left")
+    ax2.legend(loc=2)
+    ax2.set_xlim([0, np.e]);
+    ax2.set_ylabel('Y values for ln(x)');
+    ax2.set_xlabel('Same X for both exp(-x) and ln(x)')
+    plt.show()
+
+
+# 横向柱状图
+def load5():
+    import matplotlib
+    import random
+    import matplotlib.pyplot as plt
+
+    # 城市数据。
+    city_name = ['北京', '上海', '广州', '深圳', '成都']
+
+    # 数组反转。
+    city_name.reverse()
+
+    # 装载随机数据。
+    data = []
+    for i in range(len(city_name)):
+        data.append(random.randint(100, 150))
+
+    # 绘图。
+    fig, ax = plt.subplots()
+    b = ax.barh(range(len(city_name)), data, color='#6699CC')
+
+    # 为横向水平的柱图右侧添加数据标签。
+    for rect in b:
+        w = rect.get_width()
+        ax.text(w, rect.get_y() + rect.get_height() / 2, '%d' %
+                int(w), ha='left', va='center')
+
+    # 设置Y轴纵坐标上的刻度线标签。
+    ax.set_yticks(range(len(city_name)))
+    ax.set_yticklabels(city_name)
+
+    # 不要X横坐标上的label标签。
+    plt.xticks(())
+
+    plt.title('水平横向的柱状图', loc='center', fontsize='25',
+              fontweight='bold', color='red')
+    plt.show()
+
+
+# 纵向堆叠的柱状图
+def load6():
+    import numpy as np
+    import matplotlib.pyplot as plt
+    a1 = [23, 14, 26, 15]
+    a2 = [28, 22, 38, 20]
+    a3 = [29, 27, 42, 21]
+
+    x = np.arange(len(a1))
+    a = [x + y + z for x, y, z in zip(a1, a2, a3)]
+    plt.bar(x, a1, color='tab:blue', label="species 1")
+    plt.bar(x, a2, color='tab:orange', label="species 2", bottom=a1)   #bottom = a1 表示a2对应的柱子以a1的柱子的顶端为起始点
+    plt.bar(x, a3, color='tab:green', label="species 3", bottom=[x + y for x, y in zip(a1, a2)])  # bottom = a1 表示a2对应的柱子以a1的柱子的顶端为起始点
+
+    ax = plt.gca()
+    tt = ['gene 1', 'gene 2', 'gene 3', 'gene 4']
+    ax.set_xticks(x)
+    ax.set_xticklabels(tt, rotation = 45)
+    # ax.set_yticks([0, 100, 200, 300])
+    ax.set_xlabel("Related genes")
+    ax.set_ylabel("The amount of diseases")
+    ax.set_title("The relationship between genes and diseases")
+    plt.legend(loc = 0) #显示图例
+    plt.show()
+
 if __name__ == "__main__":
-    load1()
+    load6()

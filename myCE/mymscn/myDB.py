@@ -17,8 +17,8 @@ def get_model_info():
             lineArr = row.strip().split(',')
             modelName = lineArr[1]
             if modelName not in access_model:
-                # pass
-                continue
+                pass
+                # continue
             modelIndex = lineArr[0]
             modelTables = lineArr[2].split('#')
             modelProperties = lineArr[3].strip().split('#')

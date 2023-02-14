@@ -1,6 +1,6 @@
 -- 给属性创建直方图
 ```sql
-    ANALYZE TABLE  cast_info UPDATE HISTOGRAM ON movie_id WITH 100 BUCKETS; 
+    ANALYZE TABLE cast_info UPDATE HISTOGRAM ON movie_id WITH 100 BUCKETS; 
 ```
 
 -- 查看直方图信息
